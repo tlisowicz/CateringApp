@@ -1,0 +1,19 @@
+<div class="wrapper d-flex flex-column">
+    <div  class="d-flex flex-column align-items-start">
+        <h4 class="author">{{comment.author}}</h4>
+    </div>
+    <div class="d-flex justify-content-between">
+        <small class="date">{{comment.addedAt | date}}</small>
+        <div class="d-flex">
+            <p class="rating">Rating: </p>
+            <app-star-rating 
+                    [dishID]="comment.dishId" 
+                    [author]="comment.author" 
+                    [readonly]="true"
+                    [starSize]="30">
+            </app-star-rating>
+        </div>    
+    </div>
+    <p class="comment">{{comment.comment}}</p>
+
+</div>

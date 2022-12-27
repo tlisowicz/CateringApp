@@ -1,0 +1,13 @@
+app-filter-section {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    transition: 0.5s;
+    height: 0;
+   
+}
+
+.shown {
+    border: 2px spolid #ccc;
+    height: 400px;
+}

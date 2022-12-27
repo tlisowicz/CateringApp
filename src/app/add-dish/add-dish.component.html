@@ -1,0 +1,59 @@
+<div class="wrapper">
+<div class="form-container container">
+    <a href="javascript:void(0)" class="closebtn" (click) =  closeMe($event)>&#10005;</a>
+    <div>
+      <!-- <p style="color: white;">Form Value: {{ dishData.value | json }}</p>
+      <p style="color: white;">Form Status: {{ dishData.status }}</p> -->
+      <h1>Add dish</h1>
+      <form [formGroup]="dishData" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Dish name</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+          <div [hidden]="name?.valid || name?.pristine" class="alert alert-danger"> Name is required </div>
+
+          <label for="kitchenType">Kitchen type</label>
+          <input type="text" class="form-control" id="kitchenType" formControlName="kitchenType">
+          <div [hidden]="kitchenType?.valid || kitchenType?.pristine" class="alert alert-danger"> Kitchen type is required </div>
+          <label for="category">Type of meal</label>
+          <select class="form-select" aria-label="Default select example" id="category" formControlName="category">
+            <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+          </select>
+          
+          <label for="type">Special type</label>
+          <select class="form-select" aria-label="Default select example" id="type" formControlName="typeByIngredients">
+            <option *ngFor="let type of types" [value]="type">{{type}}</option>
+          </select>
+            <label for="ingredients">Ingredients</label>
+            <div formArrayName="ingredients" id="ingredients">
+              <span class="btn btn-secondary my-2" (click)="addIngredient()"> + Add ingredient</span>
+              <div *ngFor="let ingredient of ingredients.controls; let i=index">
+                <label for="ingredient-{{i}}">Ingredient: {{i+1}}</label>
+                <div class="d-flex justify-content-between">
+                  <input type="text" class="form-control  my-2 " [formControlName]="i" id="ingredient-{{i}}">
+                  <button style="margin-left:1rem; font-size: 1.3rem" class="btn btn-danger my-2" (click)="removeIngredient(i)"> &#10005; </button>
+                </div>
+                <div [hidden]="ingredient.valid || ingredient.pristine" class="alert alert-danger">ingredient is not valid </div>
+              </div>
+            </div>
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="(optional)"></textarea>
+            <label for="price">Price</label>
+            <input type="number" class="form-control" id="price" formControlName="price" required>
+            <div *ngIf="price?.errors?.['NotValidFloat'] && price?.touched" class="alert alert-danger"> Price must be positive integer value.</div>
+            <label for="servings">Servings per day</label>
+            <input type="number" class="form-control" id="servings" formControlName="servingsPerDay" required>
+            <div *ngIf="servingsPerDay?.errors?.['NotValidInt'] && servingsPerDay?.touched" class="alert alert-danger"> servings per day must be positive integer value.</div>
+            <label for="images">Images</label>
+            <div class="row m-1">
+                <label class="inputFileStyle col-12 col-sm-6 col-md-4 col-lg-3" for="images">+</label>
+                <input type="file" id="images"accept="image/*" (change)="loadPreview($event)" multiple="true">
+
+              <div class=" col-3 image-block" *ngFor="let image of imgPreview"> <img [src]="image" alt="asdasdasdas" style="color: white;"></div>
+            </div>
+          </div>
+          
+          <div class="btn-wrapper">
+            <button type="submit" class="btn btn-primary" >Submit</button>
+            
+          </div>
+          

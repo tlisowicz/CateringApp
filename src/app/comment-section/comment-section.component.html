@@ -1,0 +1,8 @@
+<div class="container my-5 ">
+    <h2 class="text-justify-start">Comments:</h2>
+    <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+    <app-add-comment-form 
+        [dishId]="dishId" 
+        [commentId]="comments.length + 1"
+    (validComment)="addComment($event)"></app-add-comment-form>
+</div>

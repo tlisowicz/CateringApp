@@ -1,0 +1,121 @@
+
+.wrapper {
+    position: absolute;
+    top: 3.5rem;
+    left: 12.5%;
+}
+
+.form-container {
+    position: relative;
+    background-color: rgb(31, 37, 42);
+    border-radius: 1rem;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+    width: 70vw;
+    border: 2px solid black;
+    overflow-y: scroll;
+    margin: 1rem ;
+
+}
+
+.form-container::-webkit-scrollbar {
+    display: none;
+  }
+
+.form-container>a {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 2rem;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+    padding: 20px 0;
+}
+.form-group label {
+    color: #fff;
+}
+
+label {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+
+.btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 1rem 2rem 2rem 0;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.inputFileStyle {
+    display: inline-flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    height: 10rem;
+    border: 5px solid #ccc;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 7rem;
+    margin: 1rem ;
+
+}
+
+.inputFileStyle:hover {
+    background-color: rgb(139, 139, 139);
+}
+
+
+.image-block {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    width: 10rem;
+    height: 10rem;
+
+}
+
+.image-block img {
+    object-fit: cover;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 1rem;
+    border: 5px solid #ccc;
+}
+
+@media screen and (max-width: 576px) {
+    .form-container {
+        margin: 1rem 0;
+        width: 100%;
+    }
+
+    .wrapper {
+        left: 0;
+        width: 100%;
+    }
+
+    .row {
+        display: flex;
+        justify-content: center;
+    }
+
+    .inputFileStyle {
+        align-self: start;
+    }
+}
+    

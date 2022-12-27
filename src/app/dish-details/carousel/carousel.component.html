@@ -1,0 +1,9 @@
+<div class="carousel-wrapper">
+	<ngb-carousel [interval]=7000 *ngIf="images">
+		<ng-template ngbSlide *ngFor="let img of images; let i=index">
+			<div class="picsum-img-wrapper">
+				<img class="img" [src]="img" alt="Random first slide"/>
+			</div>
+		</ng-template>
+	</ngb-carousel>
+</div>

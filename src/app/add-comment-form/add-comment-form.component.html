@@ -1,0 +1,18 @@
+<h1>Add Comment</h1>
+<form [formGroup]="commentData" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="author">Name</label>
+    <input type="text" class="form-control" id="name" formControlName="author">
+    <div [hidden]="author?.valid || author?.pristine" class="alert alert-danger"> Name is required </div>
+    <label for="comment">Comment</label>
+    <textarea class="form-control" id="comment" rows="3" formControlName="comment" placeholder="(optional)"></textarea>
+    <div class="d-flex justify-content-center">
+        <label for="rating" style="margin: auto 1rem">Your rating: </label>
+        <app-star-rating [readonly]="false" (rateChagne)="setRating($event)"></app-star-rating>
+    </div>
+    <div class="btn-wrapper">
+      <button type="submit" class="btn btn-primary" >Add</button>
+    </div>
+    <div>Form Value {{commentData.value | json}}</div>
+    <div>Form Status {{commentData.status}}</div>
+  </div>

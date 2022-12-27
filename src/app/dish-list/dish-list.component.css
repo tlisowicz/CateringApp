@@ -1,0 +1,53 @@
+app-dish-card {
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+}
+.wrapper {
+    background-image: url('../../assets/imgs/teahub.io-restaurant-wallpaper-419298.png');
+    background-color: bisque;
+}
+
+.add {
+    cursor: pointer;
+}
+
+.best-offer {
+    border: 5px solid rgb(31, 37, 42);
+    border-radius: 25px;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.best-offer:hover {
+    background-color: rgb(31, 37, 42);
+}
+
+.best-offer span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: rgba(31, 37, 42, 0.5);
+    display: block;
+    border-radius: 15px;
+    color: #FFF;
+    
+}
+
+.most-pres {
+    border: 5px solid gold;
+    border-radius: 25px;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.most-pres:hover {
+    background-color: gold;
+}
+.most-pres span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: rgba(255, 215, 0, 0.5);
+    display: block;
+    border-radius: 15px;
+    color: #FFF;
+}

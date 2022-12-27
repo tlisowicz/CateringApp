@@ -1,0 +1,76 @@
+.card {
+    margin: 3rem auto;
+    width: 1000px;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.subtitle {
+    font-weight: bolder;
+    padding-top: 0.7rem;
+}
+.type {
+    padding-left: 30px;
+}
+
+.descr {
+    font-style: italic;
+    color: #717fe0;
+}
+
+.card p {
+    margin: 0;
+}
+
+.ov-width {
+    width: 100px;
+}
+
+.price-sec {
+    padding-top: 0.7rem;
+}
+
+.ingredients {
+    padding: 0 30px;
+}
+
+div {
+    text-align: center;
+}
+
+.dishes-left {
+    color: rgb(196, 5, 5);
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0.5rem 0;
+    border-radius: 5px;
+}
+
+app-comment-section {
+    width: 70%;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .card {
+        margin:1rem;
+        width: 700px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        margin:1rem;
+        width: 100%;
+    }
+
+    app-comment-section {
+        width: 100%;
+    }
+
+}
