@@ -1,0 +1,21 @@
+
+<div *ngIf="dishes.length !== 0; else empty" class="container p-3 ">
+    <div>
+        <app-dish-card 
+            [dish]="dish[0]" 
+            [display]="'inCart'"
+            *ngFor="let dish of dishes | paginate: { itemsPerPage: 5, currentPage: page }" 
+        >
+        </app-dish-card>
+    </div>
+    <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
+    <button class="btn btn-primary" (click)="submitOrder()">Submit order</button>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>
+
+<ng-template #empty>
+    <div class="container p-3">
+        <h1 class="text-center">Nothing to show.</h1>
+        <h4>Your cart is empty.</h4>
+    </div>
+</ng-template>

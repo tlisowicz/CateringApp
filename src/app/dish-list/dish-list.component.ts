@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishFetchService } from '../services/dish-fetch.service';
-import { Router } from '@angular/router';
+import { FilterDataService } from '../services/filter-data.service';
+import { CartContentService } from '../services/cart-content.service';
 
 @Component({
   selector: 'app-dish-list',
@@ -14,12 +15,41 @@ export class DishListComponent {
   mostExpensive?: Dish;
   leastExpensive?: Dish;
   showAddForm: boolean = false;
+  page: number = 1;
 
-  constructor(private dishFetchService: DishFetchService, private router: Router) { 
-    this.dishes = dishFetchService.getDishes();
-    this.findMostExpensive()
-    this.findLeastExpensive()
-    };
+  searchPhrase: string = "";
+  categories: string[] = [];
+  kitchenTypes:string[] = [];
+  dishTypes: string[] = [];
+  priceTop: number = 1e10;
+  priceBottom: number = -1;
+  rating: number | null = null;
+  
+
+  constructor
+  (
+    private dishFetchService: DishFetchService, 
+    private filterService: FilterDataService,
+  ) { };
+
+  ngOnInit(): void {
+    this.getDishes();
+    this.findMostExpensive();
+    this.findLeastExpensive();
+
+    this.filterService.searchPhrase.subscribe(phrase => this.searchPhrase = phrase);
+    this.filterService.categories.subscribe(categories => this.categories = categories);
+    this.filterService.kitchenTypes.subscribe(kitchenTypes => this.kitchenTypes = kitchenTypes);
+    this.filterService.dishTypes.subscribe(dishTypes => this.dishTypes = dishTypes);
+    this.filterService.priceTop.subscribe(priceTop => this.priceTop = priceTop);
+    this.filterService.priceBottom.subscribe(priceBottom => this.priceBottom = priceBottom);
+    this.filterService.rating.subscribe(rating => this.rating = rating);
+  }
+
+    getDishes(): void {
+      this.dishFetchService.getDishes()
+      .subscribe(dishes => this.dishes = dishes);
+    }
 
     findMostExpensive() {
       this.mostExpensive = this.dishes.reduce((prev, current) => (prev.price > current.price) ? prev : current);
@@ -35,14 +65,8 @@ export class DishListComponent {
 
     deleteDish(dish: Dish) {
       this.dishes = this.dishes.filter(d => d !== dish);
-      this.findMostExpensive()
-      this.findLeastExpensive()
+      this.dishFetchService.deleteDish(dish);
+      this.findMostExpensive();
+      this.findLeastExpensive();
     }
-
-    addDish(dish: Dish) {
-      this.dishes.push(dish);
-      this.findMostExpensive()
-      this.findLeastExpensive()
-    }
-
   }

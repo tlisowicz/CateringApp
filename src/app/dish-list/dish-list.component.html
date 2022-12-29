@@ -1,22 +1,39 @@
 
 <div class="wrapper row py-3 rounded">
-    <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-12 mb-3 d-flex flex-column align-items-stretch" *ngFor="let dish of dishes, let i = index">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    <div class="col-xxl-3 col-xl-4 
+                col-md-6 col-sm-12 
+                mb-3 d-flex justify-content-center
+                flex-column
+                align-items-stretch" 
+        *ngFor="let dish of 
+                    (dishes 
+                    | search:searchPhrase 
+                    | price:priceTop:priceBottom
+                    | dishType:dishTypes
+                    | kitchenType:kitchenTypes
+                    | dishCategory:categories
+                    | rating:rating
+                    | paginate: { itemsPerPage: 5, currentPage: page }), let i = index">
 
-        <div class="text-center" *ngIf="dish == leastExpensive && dish == mostExpensive;else single">
-            <span style="min-height: 1rem;"></span>
-            <app-dish-card [dish]="dish"></app-dish-card>
+        <div class="card-container" *ngIf="dish == leastExpensive && dish == mostExpensive;else single">
+            <app-dish-card 
+                [dish]="dish"
+                [display]="'inMenu'"
+                style="flex-basis:100">
+            </app-dish-card>
         </div>
         <ng-template #single>
-            <div class="most-pres text-center" *ngIf="dish == mostExpensive">
+            <div class="most-pres text-center card-container" *ngIf="dish == mostExpensive">
                 <span>The most prestigious</span>
                 <app-dish-card [dish]="dish"></app-dish-card> 
             </div>
-            <div class="best-offer text-center" *ngIf="dish == leastExpensive">
+            <div class="best-offer text-center card-container" *ngIf="dish == leastExpensive">
                 <span>Best offer</span> 
                 <app-dish-card [dish]="dish"></app-dish-card>
             </div>
             
-            <div class="text-center" *ngIf="dish != leastExpensive && dish != mostExpensive">
+            <div class="text-center card-container" *ngIf="dish != leastExpensive && dish != mostExpensive">
                 <span style="min-height: 1rem;"></span>
                 <app-dish-card [dish]="dish"></app-dish-card>
             </div>
@@ -31,18 +48,12 @@
                         d-flex flex-column 
                         py-3 px-4 align-self-center 
                         justify-content-center 
-                        text-center" 
-                (click)="showAddDishForm()">
+                        text-center">
                 <h5>Add Dish</h5>
                 <span routerLink="/add" routerLinkActive="activate" style="font-size:20rem; display: inline-flex;align-items: start;">+</span>
             </div>
         
         </div>
     </div>
-    <app-add-dish-form 
-        [id] = dishes.length+1 
-        *ngIf ="showAddForm" 
-        (closeForm)=showAddDishForm()
-        (addDish)="addDish($event)">
-    </app-add-dish-form>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>

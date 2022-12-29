@@ -24,7 +24,6 @@ export class StarRatingComponent {
    ngOnInit(): void {
     this.avarageRating = this.commentService.getAvarageRating(this.dishID);
     this.rating = this.commentService.getRating(this.dishID, this.author) ?? 0;
-    console.log("Rating Works but now it fetches value from file so it is not dynamic");
    }
 
   rateChange() {

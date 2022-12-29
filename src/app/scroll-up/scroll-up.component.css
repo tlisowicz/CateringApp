@@ -1,0 +1,27 @@
+div {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.fade-in-out {
+    transition: all 10s ease-in-out;
+  }
+  
+  .fade-in-out.ng-enter {
+    opacity: 0;
+  }
+  
+  .fade-in-out.ng-enter-active {
+    opacity: 1;
+  }
+  
+  .fade-in-out.ng-leave {
+    opacity: 1;
+  }
+  
+  .fade-in-out.ng-leave-active {
+    opacity: 0;
+  }

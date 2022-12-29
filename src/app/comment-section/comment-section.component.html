@@ -1,8 +1,11 @@
 <div class="container my-5 ">
     <h2 class="text-justify-start">Comments:</h2>
-    <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
-    <app-add-comment-form 
+    
+    <app-comment [comment]="comment" *ngFor="let comment of comments | paginate: { itemsPerPage: 10, currentPage: page }"> ></app-comment>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    <app-add-comment-form *ngIf="true"
         [dishId]="dishId" 
         [commentId]="comments.length + 1"
     (validComment)="addComment($event)"></app-add-comment-form>
+    <h3 class="not-logged"*ngIf="false">Only logged users can add comments.</h3>
 </div>

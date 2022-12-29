@@ -13,7 +13,7 @@ export const COMMENTS: Comment[] = [
     {
         id: 1,
         dishId: 1,
-        rating: 4.15,
+        rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
         addedAt: new Date().toJSON().slice(0,10).replace(/-/g,'/')
@@ -21,7 +21,7 @@ export const COMMENTS: Comment[] = [
     {
         id: 10,
         dishId: 1,
-        rating: 4.15,
+        rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
         addedAt: new Date().toJSON().slice(0,10).replace(/-/g,'/')
@@ -29,7 +29,7 @@ export const COMMENTS: Comment[] = [
     {
         id: 11,
         dishId: 1,
-        rating: 4.15,
+        rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
         addedAt: new Date().toJSON().slice(0,10).replace(/-/g,'/')
@@ -37,7 +37,7 @@ export const COMMENTS: Comment[] = [
     {
         id: 12,
         dishId: 1,
-        rating: 4.15,
+        rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
         addedAt: new Date().toJSON().slice(0,10).replace(/-/g,'/')
@@ -45,7 +45,7 @@ export const COMMENTS: Comment[] = [
     {
         id: 13,
         dishId: 1,
-        rating: 4.15,
+        rating: 4,
         comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
         author: "Paul McVites",
         addedAt: new Date().toJSON().slice(0,10).replace(/-/g,'/')
@@ -53,7 +53,7 @@ export const COMMENTS: Comment[] = [
     {
         id: 2,
         dishId: 2,
-        rating: 3.30,
+        rating: 3,
         comment: "Eat it, just eat it!",
         author: "Michael Jaikishan",
         addedAt: new Date().toJSON().slice(0,10).replace(/-/g,'/')

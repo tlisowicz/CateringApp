@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Comment } from '../shared/comment';
 import { COMMENTS } from '../shared/mock-comments';
 @Injectable({
@@ -12,19 +13,19 @@ export class FetchCommentsService {
     this.comments = COMMENTS;
    }
 
-  getComments(): Comment[] {
-    return this.comments;
+  getComments(): Observable<Comment[]> {
+    return of(this.comments);
   }
 
-  getCommentsByDishId(dishID: number): Comment[] {
-    return this.comments.filter(comment => comment.dishId === dishID);
+  getCommentsByDishId(dishID: number):Observable<Comment[]> {
+    return of(this.comments.filter(comment => comment.dishId === dishID));
   }
 
-  getComment(id: number): Comment | undefined {
-    return this.comments.find(comment => comment.id === id);
+  getComment(id: number): Observable<Comment | undefined> {
+    return of(this.comments.find(comment => comment.id === id));
   }
   
-  getAvarageRating(dishID: number) {
+  getAvarageRating(dishID: number): number {
     let sum = 0;
     let count = 0;
     this.comments.forEach(comment => {
@@ -37,7 +38,13 @@ export class FetchCommentsService {
     return sum / count;    
   }
 
-  getRating(dishID: number, author: string | null) {
+  getRating(dishID: number, author: string | null): number | undefined {
     return this.comments.find(comment => comment.dishId === dishID && comment.author === author)?.rating;
+  }
+
+  addComment(comment: Comment): Observable<Comment> {
+    this.comments.push(comment);
+    return of(comment);
+
   }
 }

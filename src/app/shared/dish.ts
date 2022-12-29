@@ -9,4 +9,5 @@ export interface Dish {
     description: string;
     price: number;
     servingsPerDay: number;
+    avarageRaing: number | null;
 }

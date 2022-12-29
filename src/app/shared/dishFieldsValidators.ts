@@ -3,7 +3,6 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 export function positiveIntValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         const num = Number.parseInt(control.value);
-        console.log(num);
         return (num > 0 && !isNaN(num))  ?  null : { NotValidInt : { value: control.value } };
     };
 }
@@ -11,7 +10,6 @@ export function positiveIntValidator(): ValidatorFn {
 export function positiveFloatValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         const num = Number.parseFloat(control.value);
-        console.log(num);
         return (num > 0 && !isNaN(num))  ?  null : { NotValidFloat : { value: control.value } };
     };
 }

@@ -6,10 +6,17 @@ app-dish-card {
 .wrapper {
     background-image: url('../../assets/imgs/teahub.io-restaurant-wallpaper-419298.png');
     background-color: bisque;
+    max-width: 99.78vw;
 }
 
 .add {
     cursor: pointer;
+    transition: 0.5s;
+}
+
+.add:hover {
+    box-shadow: 0px 3px 20px black;
+    transform: scale(1.05);
 }
 
 .best-offer {
@@ -17,11 +24,11 @@ app-dish-card {
     border-radius: 25px;
     padding: 10px;
     transition: 0.3s;
-}
-
-.best-offer:hover {
+    margin-bottom: 0.5rem;
     background-color: rgb(31, 37, 42);
 }
+
+
 
 .best-offer span {
     font-size: 1.2rem;
@@ -29,7 +36,7 @@ app-dish-card {
     background-color: rgba(31, 37, 42, 0.5);
     display: block;
     border-radius: 15px;
-    color: #FFF;
+    color: #FFF;    
     
 }
 
@@ -38,11 +45,11 @@ app-dish-card {
     border-radius: 25px;
     padding: 10px;
     transition: 0.3s;
-}
-
-.most-pres:hover {
+    margin-bottom: 0.5rem;
     background-color: gold;
 }
+
+
 .most-pres span {
     font-size: 1.2rem;
     font-weight: 700;
@@ -50,4 +57,53 @@ app-dish-card {
     display: block;
     border-radius: 15px;
     color: #FFF;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+ pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+
+    align-items: center;
+    width: 99.72vw;
+} 
+
+pagination-controls ::ng-deep .ngx-pagination {
+    margin: 0 auto;
+    transform: scale(1.2);
+    padding: 0;
+    background-color: rgba(31, 37, 42, 0.5);
+    border-radius: 15px;
+    
+}
+
+pagination-controls ::ng-deep .ngx-pagination {
+    color: white;
+}
+
+pagination-controls ::ng-deep .ngx-pagination a::after {
+    border-radius: 15px;
+}
+
+
+pagination-controls ::ng-deep .ngx-pagination .current {
+    background-color: rgb(31, 37, 42);
+}
+
+pagination-controls ::ng-deep .ngx-pagination * {
+    transition: background-color 0.3s;
+}
+
+pagination-controls ::ng-deep .ngx-pagination .pagination-next a {
+    border-radius: 0 15px 15px 0;
+}
+
+pagination-controls ::ng-deep .ngx-pagination .pagination-previous a {
+    border-radius:15px 0 0 15px;
 }

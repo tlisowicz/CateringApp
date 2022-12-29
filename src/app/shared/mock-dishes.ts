@@ -7,7 +7,7 @@ export const DISHES: Dish[] = [
         name: "Chicken Tikka Masala",
         kitchenType: "Indian",
         category: "dinner",
-        typeByIngredients: "meat",
+        typeByIngredients: "non-vegetarian",
         description: "Chunks of roasted marinated chicken in spiced curry sauce served with naan and rice.",
         price: 20,
         servingsPerDay: 10,
@@ -17,6 +17,7 @@ export const DISHES: Dish[] = [
             "naan",
             "rice"
         ],
+        avarageRaing: null,
     },
     {
         id: 2,
@@ -24,7 +25,7 @@ export const DISHES: Dish[] = [
         name:"chocolate oatmeal with delicacies",
         kitchenType:"American",
         category:"breakfast",
-        typeByIngredients:"sweet",
+        typeByIngredients:"vegetarian",
         description:"Oatmeal with chocolate and delicacies",
         price: 10,
         servingsPerDay: 20,
@@ -33,7 +34,9 @@ export const DISHES: Dish[] = [
             "milk",
             "chocolate",
             "delicacies"
-        ]
+        ],
+        avarageRaing: null,
+
     },
     {
         id: 3,
@@ -41,7 +44,7 @@ export const DISHES: Dish[] = [
         name: "salmon with pasta and vegetables",
         kitchenType: "Mediteranean",
         category: "dinner",
-        typeByIngredients: "fish",
+        typeByIngredients: "vegetarian",
         description: "Salmon with rosted in olive oil pasta and vegetables",
         price: 25,
         servingsPerDay: 15,
@@ -51,7 +54,9 @@ export const DISHES: Dish[] = [
             "peas",
             "olives",
             "salad",
-        ]
+        ],
+        avarageRaing: null,
+
     },
     {
         id: 4,
@@ -59,7 +64,7 @@ export const DISHES: Dish[] = [
         name: "chicken with rice and vegetables",
         kitchenType: "Chinese",
         category: "dinner",
-        typeByIngredients: "meat",
+        typeByIngredients: "non-vegetarian",
         description: "Chicken with rice and vegetables",
         price: 15,
         servingsPerDay: 20,
@@ -69,7 +74,9 @@ export const DISHES: Dish[] = [
             "carrots",
             "onions",
             "peas",
-        ]
+        ],
+        avarageRaing: null,
+
     },
     {
         id: 5,
@@ -77,7 +84,7 @@ export const DISHES: Dish[] = [
         name: "tofu stir fry with vegetables",
         kitchenType: "Asian",
         category: "dinner",
-        typeByIngredients: "vegetarian",
+        typeByIngredients: "vegan",
         description: "Fired tofu with slices of tomatoes, onions, carrots",
         price: 15,
         servingsPerDay: 10,
@@ -86,7 +93,9 @@ export const DISHES: Dish[] = [
             "tomatoes",
             "onions",
             "carrots",
-        ]
+        ],
+        avarageRaing: null,
+
     },
     {
         id: 6,
@@ -94,7 +103,7 @@ export const DISHES: Dish[] = [
         name: "pancakes with berries",
         kitchenType: "American",
         category: "breakfast",
-        typeByIngredients: "sweet",
+        typeByIngredients: "vegetarian",
         description: "Pancakes poured with cream and clone syrup with berries",
         price: 10,
         servingsPerDay: 20,
@@ -103,7 +112,9 @@ export const DISHES: Dish[] = [
             "cream",
             "clone syrup",
             "berries",
-        ]
+        ],
+        avarageRaing: null,
+
     },
     {
         id: 7,
@@ -120,7 +131,9 @@ export const DISHES: Dish[] = [
             "cucumbers",
             "olives",
             "feta cheese",
-        ]
+        ],
+        avarageRaing: null,
+
     },
     {
         id: 8,
@@ -128,7 +141,7 @@ export const DISHES: Dish[] = [
         name: "Souvlaki",
         kitchenType: "Arabic",
         category: "lunch",
-        typeByIngredients: "meat",
+        typeByIngredients: "non-vegetarian",
         description: "Souvlaki with pita bread and salad",
         price: 15,
         servingsPerDay: 10,
@@ -136,7 +149,9 @@ export const DISHES: Dish[] = [
             "pita bread",
             "salad",
             "Souvlaki",
-        ]
+        ],
+        avarageRaing: null,
+
     },
     {
         id: 9,
@@ -154,7 +169,8 @@ export const DISHES: Dish[] = [
             "garlic yoghurt",
             "tomato sauce",
             "parmesan cheese",
-        ]
+        ],
+        avarageRaing: null,
 
     }
 ]

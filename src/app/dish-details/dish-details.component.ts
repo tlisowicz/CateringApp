@@ -9,11 +9,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class DishDetailsComponent implements OnInit {
   @Input() dish: Dish = {} as Dish;
+  @Input() currentlyAvaliable: number = 0;
 
   constructor(private router:Router, private activatedRoute:ActivatedRoute) {
    }
   
   ngOnInit(): void {
     this.dish = history.state.dish;
+    this.currentlyAvaliable = history.state.currentlyAvaliable;
   }
 }

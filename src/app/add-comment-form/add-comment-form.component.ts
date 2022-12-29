@@ -13,6 +13,7 @@ export class AddCommentFormComponent {
   @Input() commentId:number = 10000;
   @Input() dishId:number = 10000;
   @Output() validComment: EventEmitter<Comment> = new EventEmitter<Comment>();
+
   constructor(private fb: FormBuilder) { }
 
   commentData = this.fb.group({
@@ -49,6 +50,9 @@ export class AddCommentFormComponent {
   }
 
   setRating(rating: number) {
+    if (rating == 0) {
+      rating = 1;
+    }
     this.commentData.patchValue({rating: rating});
   }
   setInitialValues() {

@@ -10,15 +10,23 @@ import { Comment } from '../shared/comment';
 export class CommentSectionComponent {
   comments: Comment[] = [];
   @Input() dishId: number = 0;
+  page = 1;
 
   constructor(private commentService: FetchCommentsService) { }
 
   ngOnInit(): void {
-    this.comments = this.commentService.getCommentsByDishId(this.dishId);
+    this.commentService
+        .getCommentsByDishId(this.dishId)
+        .subscribe(comments => this.comments = comments);
   }
 
   addComment(comment: Comment) {
-    this.comments.push(comment);
+    this.commentService
+        .addComment(comment)
+        .subscribe(comment => {
+          this.comments.push(comment)
+          });
+
     console.log(this.comments);
   }
 }
