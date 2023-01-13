@@ -2,7 +2,7 @@
 import express from 'express';
 import {CLIENT, DISHES_COLLECTION as dishes} from '../consts.js';
 import bodyParser from 'body-parser';
-
+import {deleteComments, getCommentsByDish} from './comments.js';
 export const router = express.Router();
 const jsonParser = bodyParser.json();
 
@@ -43,7 +43,14 @@ async function addDish(req, res) {
 
 async function deleteDish(req, res) {
     try {
-        dishes.deleteOne({id: Number(req.params.id)}).then(result => {
+        const query = {id: Number(req.params.id)};
+        let res;
+        await getCommentsByDish(req, res).then(() =>{
+            if (result.length > 0) {
+                deleteComments(query);
+            }
+    });
+        dishes.deleteOne(query).then(result => {
             res.status(200).json({status: "Deleted"})
         }).catch(err => {
             res.status(400).send(err)
