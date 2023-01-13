@@ -2,29 +2,36 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Comment } from '../shared/comment';
 import { COMMENTS } from '../shared/mock-comments';
-import { DishFetchService } from './dish-fetch.service';
+import { DishService } from './dish.service';
+import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
-export class FetchCommentsService {
+export class CommentService {
 
   comments: Comment[] = [];
-
-  constructor(private dishService: DishFetchService) {
-    this.comments = COMMENTS;
-   }
+  ROOT: string = "http://localhost:3000";
+  constructor(
+    private dishService: DishService,
+    private http: HttpClient
+  ) 
+  {
+  this.comments = COMMENTS;
+  }
 
   getComments(): Observable<Comment[]> {
-    return of(this.comments);
+    const URI = "/comments";
+    const route = this.ROOT + URI;
+    return this.http.get<Comment[]>(route);
   }
 
   getCommentsByDishId(dishID: number):Observable<Comment[]> {
-    return of(this.comments.filter(comment => comment.dishId === dishID));
+    const URI = `/comments/byDish/${dishID}`;
+    const route = this.ROOT + URI;
+    return this.http.get<Comment[]>(route);
   }
 
-  getComment(id: number): Observable<Comment | undefined> {
-    return of(this.comments.find(comment => comment.id === id));
-  }
   
   recalculateAvarageRating(dishID: number, newRating: number): number {
     //TODO: poprawić
@@ -43,16 +50,14 @@ export class FetchCommentsService {
     return 0; //PLACEDHOLDER
   }
 
-  getRating(dishID: number, author: string | null): number | undefined {
-    return this.comments.find(comment => comment.dishId === dishID && comment.author === author)?.rating;
-  }
-
   addComment(comment: Comment): Observable<Comment> {
-    console.log(comment);
-    this.comments.push(comment);
-    const rating = this.recalculateAvarageRating(comment.dishId, comment.rating);
-    this.dishService.updateRating(comment.dishId, rating).subscribe();
-    return of(comment);
-
+    const URI = "/comments/new";
+    const path = this.ROOT + URI;
+    return this.http
+      .post<Comment>(
+        path, 
+        comment, 
+        {headers: {'Content-Type': 'application/json'}}
+      );
   }
 }

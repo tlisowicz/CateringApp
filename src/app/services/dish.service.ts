@@ -10,7 +10,7 @@ import { DISHES } from '../shared/mock-dishes';
   providedIn: 'root'
 })
 
-export class DishFetchService {
+export class DishService {
 
   dishes: Dish[];
   ROOT = "http://localhost:3000";

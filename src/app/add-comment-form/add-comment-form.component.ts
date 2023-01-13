@@ -2,8 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { stringValidator } from '../shared/FormFieldsValidators';
 import { Comment } from '../shared/comment';
-import { DishFetchService } from '../services/dish-fetch.service';
-import { FetchCommentsService } from '../services/fetch-comments.service';
 
 @Component({
   selector: 'app-add-comment-form',
@@ -12,7 +10,6 @@ import { FetchCommentsService } from '../services/fetch-comments.service';
 })
 export class AddCommentFormComponent {
   
-  @Input() commentId:number = 10000;
   @Input() dishId:number = 10000;
   @Output() validComment: EventEmitter<Comment> = new EventEmitter<Comment>();
 
@@ -47,12 +44,11 @@ export class AddCommentFormComponent {
 
   makeComment(): Comment {
     return {
-      id: this.commentId as number,
-      dishId: this.dishId as number,
+      dishId: Number(this.dishId) as number,
       author: this.commentData.value.author as string,
       rating: this.commentData.value.rating as number,
       comment: this.commentData.value.comment as string,
-      addedAt: this.commentData.value.date ? new Date().toISOString() : this.commentData.value.date!.toISOString(),
+      addedAt: this.commentData.value.date ? new Date().toJSON().slice(0,10).replace(/-/g,'/') : this.commentData.value.date!.toJSON().slice(0,10).replace(/-/g,'/') ,
     }
   }
 

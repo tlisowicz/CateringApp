@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Dish } from '../shared/dish';
-import { DishFetchService } from '../services/dish-fetch.service';
+import { DishService } from '../services/dish.service';
 import { FilterDataService } from '../services/filter-data.service';
 import { CartContentService } from '../services/cart-content.service';
 
@@ -27,7 +27,7 @@ export class DishListComponent {
 
   constructor
   (
-    private dishFetchService: DishFetchService, 
+    private dishService: DishService, 
     private filterService: FilterDataService,
   ) { };
 
@@ -43,7 +43,7 @@ export class DishListComponent {
   }
 
     getDishes(): void {
-      this.dishFetchService.getDishes()
+      this.dishService.getDishes()
       .subscribe(dishes => {
         this.dishes = dishes;
         this.findMostExpensive();
@@ -65,7 +65,7 @@ export class DishListComponent {
         return;
       }
       this.dishes = this.dishes.filter(d => d !== dish);
-      this.dishFetchService.deleteDish(dish.id).subscribe();
+      this.dishService.deleteDish(dish.id).subscribe();
       this.findMostExpensive();
       this.findLeastExpensive();
     }

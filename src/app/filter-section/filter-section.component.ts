@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DishFetchService } from '../services/dish-fetch.service';
+import { DishService } from '../services/dish.service';
 import { FilterDataService } from '../services/filter-data.service';
 import { Dish } from '../shared/dish';
 
@@ -25,7 +25,7 @@ export class FilterSectionComponent {
 
   constructor(
     private filterService: FilterDataService, 
-    private dishService: DishFetchService,
+    private dishService: DishService,
     private router: Router
   ) {
     router.events.subscribe(() => {

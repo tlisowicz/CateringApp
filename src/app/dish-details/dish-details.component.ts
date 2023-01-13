@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DishFetchService } from '../services/dish-fetch.service';
+import { DishService } from '../services/dish.service';
 import { CurrencyService } from '../services/currency.service';
 @Component({
   selector: 'app-dish-details',
@@ -17,7 +17,7 @@ export class DishDetailsComponent implements OnInit {
   constructor(
     private router:Router, 
     private activatedRoute:ActivatedRoute,
-    private dishServie: DishFetchService,
+    private dishServie: DishService,
     private currencySercvice: CurrencyService
   ) 
   {

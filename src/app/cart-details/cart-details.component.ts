@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OrderHistoryService } from '../services/order-history.service';
 import { CartContentService } from '../services/cart-content.service';
-import { DishFetchService } from '../services/dish-fetch.service';
+import { DishService } from '../services/dish.service';
 import { Dish } from '../shared/dish';
 
 @Component({
@@ -18,7 +18,7 @@ export class CartDetailsComponent {
   constructor
   (
     private cartService: CartContentService,
-    private dishService: DishFetchService,
+    private dishService: DishService,
     private orderService: OrderHistoryService
   ) { }
 

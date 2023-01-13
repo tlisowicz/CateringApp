@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FetchCommentsService } from './fetch-comments.service';
+import { CommentService } from './comment.service';
 
 describe('FetchCommentsService', () => {
-  let service: FetchCommentsService;
+  let service: CommentService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FetchCommentsService);
+    service = TestBed.inject(CommentService);
   });
 
   it('should be created', () => {

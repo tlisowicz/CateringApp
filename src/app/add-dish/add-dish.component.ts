@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Dish } from '../shared/dish';
 import { FileUploaderService } from '../services/file-uploader.service';
 import { positiveFloatValidator, positiveIntValidator, stringValidator } from '../shared/FormFieldsValidators';
-import { DishFetchService } from '../services/dish-fetch.service';
+import { DishService } from '../services/dish.service';
 
 @Component({
   selector: 'app-add-dish-form',
@@ -17,9 +17,9 @@ export class AddDishComponent {
   constructor(
     private fb: FormBuilder, 
     private fileUploader: FileUploaderService,
-    private dishService: DishFetchService) 
+    private dishService: DishService) 
     {
-      this.dishService.getLastDishID().subscribe(id => this.id = id);
+      this.dishService.getLastDishID().subscribe(id => this.id = id + 1);
     }
 
   dishData = this.fb.group({

@@ -1,5 +1,4 @@
 export interface Comment {
-    id: number;
     dishId: number;
     rating: number;
     comment: string;
