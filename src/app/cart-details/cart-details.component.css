@@ -5,4 +5,42 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: transparent;
+}
+
+.cart-empty {
+    background-color: rgb(31,37,42);
+    color: white;
+}
+
+.controls {
+    width: 80%;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.controls .clear-submit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 0.3rem 0;
+}
+
+
+
+pagination-controls {
+    display: inline-flex;
+    justify-content: center;
+    margin: 10px;
+    align-self: center;
+    align-items: center;
+} 
+
+pagination-controls ::ng-deep .ngx-pagination {
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 15px;
+    
 }

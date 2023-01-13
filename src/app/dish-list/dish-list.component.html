@@ -1,6 +1,6 @@
 
-<div class="wrapper row py-3 rounded">
-    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+<div class="wrapper row py-3 rounded no-gutters">
+    <pagination-controls class="m-0 p-0"(pageChange)="page = $event"></pagination-controls>
     <div class="col-xxl-3 col-xl-4 
                 col-md-6 col-sm-12 
                 mb-3 d-flex justify-content-center
@@ -41,8 +41,11 @@
         
         <span *ngIf="true" class="ov-width btn btn-danger w-50 align-self-center" (click) = deleteDish(dish)>Delete</span>
     </div>
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3 d-flex justify-content-center">
-        <span class="text-center" style="height:20px"></span>
+    <div class="col-xxl-3 col-xl-4 
+                col-md-6 col-sm-12 
+                mb-3 d-flex justify-content-center
+                flex-column
+                align-items-stretch">
         <div class="add card align-self-center" style="width:20rem; height:500px">
             <div class="card-body 
                         d-flex flex-column 
@@ -55,5 +58,5 @@
         
         </div>
     </div>
-    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    <pagination-controls class="m-0 p-0" (pageChange)="page = $event"></pagination-controls>
 </div>

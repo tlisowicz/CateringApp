@@ -1,0 +1,14 @@
+.container {
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.history-empty {
+    background-color: rgb(31,37,42);
+    color: white;
+}

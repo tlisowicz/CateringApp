@@ -1,4 +1,4 @@
-<ngb-rating [max]="5" [(rate)]="showAvarage ? avarageRating : rating" [readonly]="readonly" (rateChange)="rateChange()">
+<ngb-rating [max]="5" [(rate)]="rating" [readonly]="readonly" (rateChange)="rateChange()">
   <ng-template #t let-fill="fill">
       <i class="bi-star-fill" [ngStyle]="{'font-size.px': starSize}">
         <i *ngIf="fill > 0" class="bi-star-fill filled" [style.width.%]="fill" [ngStyle]="{'font-size.px': starSize}"></i>

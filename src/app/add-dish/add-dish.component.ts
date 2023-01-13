@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Dish } from '../shared/dish';
 import { FileUploaderService } from '../services/file-uploader.service';
-import { positiveFloatValidator, positiveIntValidator, stringValidator } from '../shared/dishFieldsValidators';
+import { positiveFloatValidator, positiveIntValidator, stringValidator } from '../shared/FormFieldsValidators';
 import { DishFetchService } from '../services/dish-fetch.service';
 
 @Component({
@@ -12,12 +12,15 @@ import { DishFetchService } from '../services/dish-fetch.service';
 })
 export class AddDishComponent {
 
+  id:number = 10000;
+  imgPreview: any = [];
   constructor(
     private fb: FormBuilder, 
     private fileUploader: FileUploaderService,
-    private dishService: DishFetchService) { }
-  @Input() id:number = 10000;
-  imgPreview: any = [];
+    private dishService: DishFetchService) 
+    {
+      this.dishService.getLastDishID().subscribe(id => this.id = id);
+    }
 
   dishData = this.fb.group({
     img: [['']] ,
@@ -72,7 +75,7 @@ export class AddDishComponent {
       this.dishData.patchValue({img: this.imgPreview as string[]});
 
     }
-    this.dishService.addDish(this.makeDish());
+    this.dishService.addDish(this.makeDish()).subscribe();
     alert('Dish added!');
     this.dishData.reset();
     this.setInitialValues();
@@ -91,7 +94,7 @@ export class AddDishComponent {
       price: this.dishData.value.price as number,
       servingsPerDay: this.dishData.value.servingsPerDay as number,
       ingredients: this.dishData.value.ingredients as string[],
-      avarageRaing: null,
+      avarageRating: null,
     }
   }
 

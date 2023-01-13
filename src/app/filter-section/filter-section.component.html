@@ -4,7 +4,12 @@
     <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchPhrase" (change)="setSearchPhrase()" id="search" >
 
     <label for="rating">Filter by rating:</label>
-    <select class="form-select" aria-label="Default select example" id="rating" (click)="setRating()" [(ngModel)]="selectedRating">
+    <select 
+      class="form-select" 
+      aria-label="Default select example" 
+      [selectedIndex]="1"
+      id="rating" (click)="setRating()" 
+      [(ngModel)]="selectedRating">
       <option value="Not rated" >Not rated</option>
       <option value="1">1 or more</option>
       <option value="2">2 or more</option>

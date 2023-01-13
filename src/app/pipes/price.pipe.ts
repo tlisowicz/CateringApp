@@ -7,7 +7,7 @@ import { Dish } from '../shared/dish';
 export class PricePipe implements PipeTransform {
 
   transform(dishes: Dish[], topRange:number=1e10, bottomRange: number=-1 ): Dish[] {
-    if (!dishes) {
+    if (!dishes || !dishes.length) {
       return dishes;
     }
     

@@ -21,3 +21,11 @@ export function stringValidator(rgx: RegExp): ValidatorFn {
         return (valid)  ?  null : { NotValidString : { value: control.value } };
     };
 }
+
+// export function dateValidator(rgx: RegExp): ValidatorFn {
+//     return (control: AbstractControl): ValidationErrors | null => {
+//         const valid = rgx.test(control.value);
+
+//         return (valid)  ?  null : { NotValidString : { value: control.value } };
+//     };
+// }

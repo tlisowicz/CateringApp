@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OrderHistoryService } from '../services/order-history.service';
 import { CartContentService } from '../services/cart-content.service';
 import { DishFetchService } from '../services/dish-fetch.service';
 import { Dish } from '../shared/dish';
@@ -12,17 +13,18 @@ export class CartDetailsComponent {
 
   dishes: [Dish, number][] = [];
   page: number = 1; 
+  showModal: boolean = false;
 
   constructor
   (
     private cartService: CartContentService,
-    private dishService: DishFetchService
+    private dishService: DishFetchService,
+    private orderService: OrderHistoryService
   ) { }
 
   ngOnInit(): void {
     this.cartService.dishesSubject.subscribe(dishes => {
       this.dishes = dishes;
-      console.log(this.dishes);
     });
   }
 
@@ -31,12 +33,11 @@ export class CartDetailsComponent {
   }
 
   submitOrder() {
+    this.showModal = true;
     this.dishes.forEach(dish => {
-      console.log("before",dish[0], dish[0].servingsPerDay);
-      this.dishService.updateDishQuantity(dish);
-      console.log("after", dish[0], dish[0].servingsPerDay);
-
+      this.dishService.updateDishQuantity(dish).subscribe();
     });
+    this.orderService.setOrderHistory(this.dishes, 0 ,new Date());
     this.cartService.removeAllDishes();
   }
 }

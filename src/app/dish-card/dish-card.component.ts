@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartContentService } from '../services/cart-content.service';
+import { CurrencyService } from '../services/currency.service';
 import { Dish } from '../shared/dish';
 
 @Component({
@@ -12,18 +13,26 @@ export class DishCardComponent implements OnInit{
 
   @Input() dish: Dish = {} as Dish;
   @Input() display: string = 'inMenu';
+  @Input() selected: number = 0;
   currentlyAvaliable: number = 0;
-  selected: number = 0;
+  currency: string = "";
 
   constructor
   (
     private router: Router,
-    private cartService: CartContentService
-    ) {  }
+    private cartService: CartContentService,
+    private currencyService: CurrencyService
+    ) { 
+      this.currencyService.currency.subscribe(currency => {
+        this.currency = currency;
+      });
+     }
 
   ngOnInit() {
-    this.selected = this.cartService.getNumberOfDishes(this.dish);
-    this.currentlyAvaliable = this.dish.servingsPerDay -this.selected;
+    if (this.display !== 'orderHistory'){
+      this.selected = this.cartService.getNumberOfDishes(this.dish);
+      this.currentlyAvaliable = this.dish.servingsPerDay -this.selected;
+    }
   }
 
   increment(event: any) {
@@ -45,10 +54,11 @@ export class DishCardComponent implements OnInit{
   }
 
   gotoDishDetails(id: number) {
+    console.log(id);
     this.router.navigateByUrl(
       '/dish-details/'+id, 
       { state: 
-        { dish: this.dish, 
+        { id: id, 
           currentlyAvaliable: this.currentlyAvaliable 
         }
       });

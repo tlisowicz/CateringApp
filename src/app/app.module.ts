@@ -30,6 +30,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CartComponent } from './cart/cart.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
+import { ModalWindowComponent } from './modal-window/modal-window.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import {HttpClientModule} from '@angular/common/http';
+import { WelcomePageComponent } from './welcome-page/wecome-page.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +60,9 @@ import { CartDetailsComponent } from './cart-details/cart-details.component';
     ScrollUpComponent,
     CartComponent,
     CartDetailsComponent,
+    ModalWindowComponent,
+    OrderHistoryComponent,
+    WelcomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +72,8 @@ import { CartDetailsComponent } from './cart-details/cart-details.component';
     NgbModule,
     CarouselComponent,   
     BrowserAnimationsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

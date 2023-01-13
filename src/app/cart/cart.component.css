@@ -1,0 +1,16 @@
+#boot-icon {
+    position: relative;
+}
+
+.badge-pill {
+    position: absolute;
+    top: 2px;
+    left: 12px;
+    font-size: 0.7rem;
+    background-color: #717fe0;
+    border-radius: 50%;
+}
+
+.moreThan10 {
+    background-color: orange;
+}

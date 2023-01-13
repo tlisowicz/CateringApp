@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CurrencyService } from '../services/currency.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +11,10 @@ export class NavbarComponent {
   
   currentRoute: string = "";
   showFilterSection: boolean = false;
+  chosenCurrency: string = "";
 
 
-  constructor(router: Router) {
+  constructor(router: Router, private currencyService: CurrencyService) {
     router.events.subscribe(() => {
       this.currentRoute = router.url;
       
@@ -20,6 +22,10 @@ export class NavbarComponent {
         this.showFilterSection = false;
       }
     });
+
+    currencyService.currency.subscribe(currency => {
+      this.chosenCurrency = currency;
+    })
    }
 
 
@@ -28,4 +34,16 @@ export class NavbarComponent {
     this.showFilterSection = !this.showFilterSection;
   }
 
+  setCurrency(e: any) {
+    const currency = e.target.innerHTML;
+    if (currency === "$") {
+      e.target.innerHTML = "€";
+      this.currencyService.setCurrency("USD");
+      
+    }
+    else {
+      e.target.innerHTML = "$";
+      this.currencyService.setCurrency("EUR");
+    }
+  }
 }

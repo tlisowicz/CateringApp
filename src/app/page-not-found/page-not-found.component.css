@@ -88,3 +88,10 @@
   height: 93.5vh;
   background-color: bisque;
 }
+
+app-navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 10;
+  top: 0;
+}

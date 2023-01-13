@@ -1,9 +1,11 @@
+<app-scroll-up></app-scroll-up>
 <div class="container my-5 ">
     <h2 class="text-justify-start">Comments:</h2>
     
     <app-comment [comment]="comment" *ngFor="let comment of comments | paginate: { itemsPerPage: 10, currentPage: page }"> ></app-comment>
     <pagination-controls (pageChange)="page = $event"></pagination-controls>
-    <app-add-comment-form *ngIf="true"
+    <app-add-comment-form  *ngIf="true"
+        class="p-1"
         [dishId]="dishId" 
         [commentId]="comments.length + 1"
     (validComment)="addComment($event)"></app-add-comment-form>

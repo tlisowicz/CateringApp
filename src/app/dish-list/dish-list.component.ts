@@ -14,7 +14,6 @@ export class DishListComponent {
   dishes: Dish[] = [];
   mostExpensive?: Dish;
   leastExpensive?: Dish;
-  showAddForm: boolean = false;
   page: number = 1;
 
   searchPhrase: string = "";
@@ -34,9 +33,6 @@ export class DishListComponent {
 
   ngOnInit(): void {
     this.getDishes();
-    this.findMostExpensive();
-    this.findLeastExpensive();
-
     this.filterService.searchPhrase.subscribe(phrase => this.searchPhrase = phrase);
     this.filterService.categories.subscribe(categories => this.categories = categories);
     this.filterService.kitchenTypes.subscribe(kitchenTypes => this.kitchenTypes = kitchenTypes);
@@ -48,7 +44,11 @@ export class DishListComponent {
 
     getDishes(): void {
       this.dishFetchService.getDishes()
-      .subscribe(dishes => this.dishes = dishes);
+      .subscribe(dishes => {
+        this.dishes = dishes;
+        this.findMostExpensive();
+        this.findLeastExpensive();
+      });
     }
 
     findMostExpensive() {
@@ -59,13 +59,13 @@ export class DishListComponent {
       this.leastExpensive = this.dishes.reduce((prev, current) => (prev.price < current.price) ? prev : current);
     }
 
-    showAddDishForm() {
-      this.showAddForm = !this.showAddForm;
-    }
 
     deleteDish(dish: Dish) {
+      if (!window.confirm("Are you sure you want to delete this dish?")) {
+        return;
+      }
       this.dishes = this.dishes.filter(d => d !== dish);
-      this.dishFetchService.deleteDish(dish);
+      this.dishFetchService.deleteDish(dish.id).subscribe();
       this.findMostExpensive();
       this.findLeastExpensive();
     }

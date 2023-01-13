@@ -5,10 +5,10 @@
       <h5 class="title card-title">{{dish.name | titlecase}}</h5>
       <p class="descr card-text text-justify">{{dish.description}}</p>
 
-      <div class="price-sec d-flex justify-content-evenly"><span>Avaliable today: {{currentlyAvaliable}}</span> <span>Price: {{dish.price | currency:"USD" | dolEurExchanger}}  </span></div>
+      <div class="price-sec d-flex justify-content-evenly"><span>Avaliable today: {{currentlyAvaliable}}</span> <span>Price: {{dish.price | currency:currency | dolEurExchanger}}  </span></div>
       
-      <p class="subtitle card-text text-center">Avarage rating:</p>
-      <app-star-rating [dishID]="dish.id" [readonly]="true" [showAvarage]="true"></app-star-rating>
+      <p class="subtitle card-text text-center">Avarage rating:<span *ngIf="dish.avarageRating===null"> (Not rated)</span></p>
+      <app-star-rating [dishID]="dish.id" [readonly]="true" [initialRating]="dish.avarageRating"></app-star-rating>
       <div class="dishes-left" *ngIf="currentlyAvaliable <= 3 && currentlyAvaliable > 1">Only {{currentlyAvaliable}} dishes left!</div>
       <div class="dishes-left" *ngIf="currentlyAvaliable == 1">Only {{currentlyAvaliable}} dish left!</div>
       <div class="qty my-3" (click)="stopPropagation($event)">
@@ -20,24 +20,25 @@
 </div>
   
 
-<div *ngIf="display==='inCart'">
-  <div class="card mb-3" style="max-width: 80%;" >
+<div *ngIf="display==='inCart' || display==='orderHistory'" class="inCart" >
+  <div class="card mb-3">
     <div class="row no-gutters">
-      <div class="col-md-3" style="max-height:300px" >
-        <img [src]="dish.img[0]" class="card-img" alt="Dish photo" style="max-height:300px;object-fit: cover;" >
+      <div class="col-md-3">
+        <img [src]="dish.img[0]" class="card-img" alt="Dish photo" style="height:200px;object-fit: cover;" >
       </div>
-      <div class="col-md-6">
-        <div class="card-body">
+      <div class="col-md-9 d-flex align-items-center body-wrapper" style="height:200px">
+        <div class="card-body d-flex justify-content-between">
           <h5 class="title card-title">{{dish.name | titlecase}}</h5>
-          <span class="card-test">
-            Total: {{dish.price*selected | currency:"USD" | dolEurExchanger}}
-        </span>
-          <div class="qty my-3" (click)="stopPropagation($event)">
-            <span *ngIf="currentlyAvaliable != 0" (click)="increment($event);addToCart()" class="plus bg-dark">+</span>
+          <div class="qty my-3 d-flex" (click)="stopPropagation($event)">
+            <span *ngIf="currentlyAvaliable != 0 && display==='inCart'" (click)="increment($event);addToCart()" class="plus bg-dark">+</span>
+            <span *ngIf="display==='orderHistory'" class="qty">Qty:</span>
             <span  type="number" class="count" name="qty">{{selected}}</span>
-            <span *ngIf="currentlyAvaliable != dish.servingsPerDay" (click)="decrement($event); removeFromCart()" class="minus bg-dark">-</span>
-            <button class="btn btn-danger" (click)="removeAllOfTypeFromCart()">Remove all</button>
+            <span *ngIf="currentlyAvaliable != dish.servingsPerDay && display==='inCart'" (click)="decrement($event); removeFromCart()" class="minus bg-dark">-</span>
           </div>
+          <span class=" total card-test">
+            Total: {{dish.price*selected | currency:currency | dolEurExchanger}}
+          </span>
+          <button *ngIf="display==='inCart' " class="btn btn-danger" (click)="removeAllOfTypeFromCart()">Remove all</button>
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import { Dish } from "./dish";
-
 export const DISHES: Dish[] = [
     {
         id: 1,
@@ -17,7 +16,7 @@ export const DISHES: Dish[] = [
             "naan",
             "rice"
         ],
-        avarageRaing: null,
+        avarageRating: null,
     },
     {
         id: 2,
@@ -35,7 +34,7 @@ export const DISHES: Dish[] = [
             "chocolate",
             "delicacies"
         ],
-        avarageRaing: null,
+        avarageRating: null,
 
     },
     {
@@ -55,7 +54,7 @@ export const DISHES: Dish[] = [
             "olives",
             "salad",
         ],
-        avarageRaing: null,
+        avarageRating: null,
 
     },
     {
@@ -75,7 +74,7 @@ export const DISHES: Dish[] = [
             "onions",
             "peas",
         ],
-        avarageRaing: null,
+        avarageRating: null,
 
     },
     {
@@ -94,7 +93,7 @@ export const DISHES: Dish[] = [
             "onions",
             "carrots",
         ],
-        avarageRaing: null,
+        avarageRating: null,
 
     },
     {
@@ -113,7 +112,7 @@ export const DISHES: Dish[] = [
             "clone syrup",
             "berries",
         ],
-        avarageRaing: null,
+        avarageRating: null,
 
     },
     {
@@ -132,7 +131,7 @@ export const DISHES: Dish[] = [
             "olives",
             "feta cheese",
         ],
-        avarageRaing: null,
+        avarageRating: null,
 
     },
     {
@@ -150,7 +149,7 @@ export const DISHES: Dish[] = [
             "salad",
             "Souvlaki",
         ],
-        avarageRaing: null,
+        avarageRating: null,
 
     },
     {
@@ -170,7 +169,7 @@ export const DISHES: Dish[] = [
             "tomato sauce",
             "parmesan cheese",
         ],
-        avarageRaing: null,
+        avarageRating: null,
 
     }
 ]

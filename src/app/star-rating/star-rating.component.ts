@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FetchCommentsService } from '../services/fetch-comments.service';
 
 @Component({
   selector: 'app-star-rating',
@@ -9,21 +8,19 @@ import { FetchCommentsService } from '../services/fetch-comments.service';
 export class StarRatingComponent {
 
   @Input() readonly: boolean = true;
-  @Input() showAvarage: boolean = false;
   @Input() dishID: number = 0;
   @Input() author: string | null = null;
   @Input() starSize:number = 40;
+  @Input() initialRating: number | null = 0;
   @Output() rateChagne: EventEmitter<number> = new EventEmitter<number>();
 
   rating: number = 0;
-  avarageRating: number = 0;
-  constructor(private commentService: FetchCommentsService) {
+  constructor() {
 
    }
 
    ngOnInit(): void {
-    this.avarageRating = this.commentService.getAvarageRating(this.dishID);
-    this.rating = this.commentService.getRating(this.dishID, this.author) ?? 0;
+    this.initialRating === null ? this.rating = 0 : this.rating = this.initialRating;
    }
 
   rateChange() {

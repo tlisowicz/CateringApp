@@ -1,4 +1,4 @@
-
+<app-navbar></app-navbar>
 <div class="wrapper">
   <div class="card">
     <carousel class="card-img-top" [images]=dish.img></carousel>
@@ -11,7 +11,7 @@
       <li class="type card-text text-start">type: {{dish.typeByIngredients | uppercase}}</li>
       <p class="subtitle card-text text-start">Ingredients:</p>
       <p  class="ingredients" ><span *ngFor="let ingredient of dish.ingredients; let i = index ">{{ingredient}}<span *ngIf="i!= dish.ingredients.length-1">, </span></span></p>
-      <div class="price-sec d-flex justify-content-evenly"><span>Avaliable today: {{currentlyAvaliable}}</span> <span>Price: {{dish.price | currency:"USD" | dolEurExchanger}}  </span></div>
+      <div class="price-sec d-flex justify-content-evenly"><span>Avaliable today: {{currentlyAvaliable}}</span> <span>Price: {{dish.price | currency:currency | dolEurExchanger}}  </span></div>
    
       </div>
     </div>

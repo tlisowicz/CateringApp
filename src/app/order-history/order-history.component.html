@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div *ngIf="dishes.length !== 0; else empty" class="container p-3">
+    <div *ngFor="let date of uniqueDates;">
+        <h4>{{date | date:'medium'}}</h4>
+        <ng-container *ngFor="let dish of dishes | paginate: { itemsPerPage: 5, currentPage: page }">
+            <script>
+                console.log(dish[2]);
+                console.log(date);
+                console.log(dish[2]===date);
+            </script>
+            <app-dish-card
+            *ngIf="dish[2] === date" 
+            [dish]="dish[0]" 
+            [display]="'orderHistory'"
+            [selected]="dish[1]"
+        >
+        </app-dish-card>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #empty>
+    <div class="container history-empty p-3 mt-5">
+        <h1 class="text-center">Nothing to show</h1>
+        <h4>Your order history is empty.</h4>
+    </div>
+</ng-template>

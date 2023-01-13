@@ -4,13 +4,16 @@ app-filter-section {
     width: 100%;
     transition: 0.5s;
     height: 0;
-
-   
 }
 
 .shown {
-    
     height: 150px;
+}
+
+.price {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
 }
 
 @media screen and (max-width: 768px) {

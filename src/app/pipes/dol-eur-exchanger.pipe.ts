@@ -16,8 +16,9 @@ export class DolEurExchangerPipe implements PipeTransform {
       return eur.toFixed(2).toString() + "€";
     }
 
+    //prices in dishes interface are given in dolars
     else if (value.includes("€")) {
-      const dol = numValue * 1.06;
+      const dol = numValue;
       return dol.toFixed(2).toString() + "$";
     }
     return value;
