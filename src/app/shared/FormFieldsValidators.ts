@@ -22,10 +22,45 @@ export function stringValidator(rgx: RegExp): ValidatorFn {
     };
 }
 
-// export function dateValidator(rgx: RegExp): ValidatorFn {
-//     return (control: AbstractControl): ValidationErrors | null => {
-//         const valid = rgx.test(control.value);
+export class PasswordValidators {
+    constructor() {}
+  
+    static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+      return (control: AbstractControl): ValidationErrors | null => {
+        if (!control.value) {
+          // if the control value is empty return no error.
+          return null;
+        }
+  
+        // test the value of the control against the regexp supplied.
+        const valid = regex.test(control.value);
+  
+        // if true, return no error, otherwise return the error object passed in the second parameter.
+        return valid ? null : error;
+      };
+    }
 
-//         return (valid)  ?  null : { NotValidString : { value: control.value } };
-//     };
-// }
+    static matchValidator(
+        matchTo: string, 
+        reverse?: boolean
+      ): ValidatorFn {
+        return (control: AbstractControl): 
+        ValidationErrors | null => {
+          if (control.parent && reverse) {
+            const c = (control.parent?.controls as any)[matchTo] as AbstractControl;
+            if (c) {
+              c.updateValueAndValidity();
+            }
+            return null;
+          }
+          return !!control.parent &&
+            !!control.parent.value &&
+            control.value === 
+            (control.parent?.controls as any)[matchTo].value
+            ? null
+            : { matching: true };
+        };
+      }
+  }
+
+

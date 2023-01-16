@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { OrderHistoryService } from '../services/order-history.service';
 import { Dish } from '../shared/dish';
+import { OrderHistory } from '../shared/orderHistory';
 
 @Component({
   selector: 'app-order-history',
@@ -10,24 +12,33 @@ import { Dish } from '../shared/dish';
 })
 export class OrderHistoryComponent {
 
-  dishes: [Dish, number, Date][] = [];
+  orderHistories: OrderHistory[] = [];
   uniqueDates: Set<Date> = new Set();
-  @Input() userId: number = 0; 
+  userName: string = '';
   page: number = 1;
 
-  constructor
-  (
+  constructor(
     private orderService: OrderHistoryService,
+    private auth: AuthService,
   ) {
-    
-   }
-
-  ngOnInit(): void {
-    this.orderService.getOrderHistory(this.userId).subscribe(dishes => {
-      this.dishes = dishes ?? [];
-      this.uniqueDates = new Set(this.dishes.map(dish => dish[2]));
+    this.auth.userState.subscribe(userState => {
+      if (userState) {
+        this.userName = userState.username;
+      } else {
+        this.userName = '';
+      }
     });
   }
 
+  ngOnInit(): void {
+    this.orderService.getOrderHistory(this.userName)
+    .subscribe(orderHistoryArray => {
+      this.orderHistories = orderHistoryArray;
+      this.orderHistories.sort((a, b) => {
+        return new Date(b.date as string).getTime() - new Date(a.date as string).getTime();
+      });
+    });
+  }
+  
 
 }

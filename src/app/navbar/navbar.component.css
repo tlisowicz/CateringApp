@@ -15,6 +15,14 @@ app-filter-section {
     width: 35px;
     height: 35px;
 }
+.userName {
+    color: aliceblue;
+    margin: 0 .5rem;
+}
+
+.userName span {
+    text-decoration: underline;
+}
 
 @media screen and (max-width: 768px) {
     .shown { 

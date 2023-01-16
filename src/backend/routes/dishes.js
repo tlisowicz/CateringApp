@@ -1,10 +1,12 @@
 
 import express from 'express';
-import {CLIENT, DISHES_COLLECTION as dishes} from '../consts.js';
+import { DISHES_COLLECTION as dishes, COMMENTS_COLLECTION as comments} from '../consts.js';
 import bodyParser from 'body-parser';
-import {deleteComments, getCommentsByDish} from './comments.js';
+import {deleteComments} from './comments.js';
+import {authenticateToken} from './authorization.js';
+
 export const router = express.Router();
-const jsonParser = bodyParser.json();
+const jsonParser = bodyParser.json({limit: '50mb'});
 
 async function getDishes(req, res) {
     try {
@@ -34,7 +36,6 @@ async function addDish(req, res) {
 
     try {
         const result = await dishes.insertOne(dish);
-        console.log(result);
         res.status(201).json("Dish Added") 
     } catch(err) {
         res.status(400).send(err)
@@ -44,18 +45,19 @@ async function addDish(req, res) {
 async function deleteDish(req, res) {
     try {
         const query = {id: Number(req.params.id)};
-        let res;
-        await getCommentsByDish(req, res).then(() =>{
-            if (result.length > 0) {
-                deleteComments(query);
-            }
-    });
+        comments.find({dishId: Number(req.params.id)}).toArray().then(result => {
+           if (result.length > 0) {
+               deleteComments(Number(req.params.id)).catch(err => {throw(err)});
+           }
+        }).catch(err => {
+            res.status(400).send(err)
+        })
+
         dishes.deleteOne(query).then(result => {
             res.status(200).json({status: "Deleted"})
         }).catch(err => {
             res.status(400).send(err)
-        });
-
+        })
     } catch(err) {
         res.status(400).send(err)
     }
@@ -77,9 +79,7 @@ async function updateDish(req, res) {
         const value = req.body;
         const filter = { id:Number(req.params.id)};
         const avarageRating = value.avarageRating;
-        const servingsPerDay = value.servingsPerDay;
-        console.log(value);
-        console.log(avarageRating)
+        const userBought = value.servingsPerDay;
         if (avarageRating !== undefined) {
             const update = {
                 $set: {
@@ -90,10 +90,12 @@ async function updateDish(req, res) {
             res.status(200).json(result);
         }
     
-        else if (servingsPerDay) {
+        else if (userBought) {
+            const dish = await dishes.findOne(filter);
+            const oldCount = dish.servingsPerDay;
             const update = {
-                $set: {
-                    servingsPerDay: servingsPerDay
+                $set: {                   
+                    servingsPerDay: oldCount - userBought
                 }
             }
             const result = await dishes.updateOne(filter, update);
@@ -111,9 +113,9 @@ async function updateDish(req, res) {
 }
 
 router.get('/', getDishes);
-router.get("/lastID", getLastID);
+router.get("/lastID", authenticateToken,  getLastID);
 router.route('/:id')
-    .get(getDish)
-    .delete(deleteDish)
-    .patch(jsonParser, updateDish);
-router.post('/new', jsonParser, addDish);
+    .get(authenticateToken, getDish)
+    .delete(authenticateToken, deleteDish)
+    .patch(authenticateToken, jsonParser, updateDish);
+router.post('/new', authenticateToken, jsonParser, addDish);

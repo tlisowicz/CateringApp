@@ -1,0 +1,28 @@
+.parallax {
+    background-image: url('/assets/imgs/indian-condiments-with-copy-space-view.jpg');
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+
+h1{
+
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+    
+}
+
+.parallax-top {
+  min-height: 400px;
+}
+
+.parallax-bottom {
+  min-height: 200px;
+}

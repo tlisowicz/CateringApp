@@ -1,0 +1,21 @@
+<div class="wrapper container-md p-3">
+    <h3 *ngIf="showMessage" class="text-center" [ngStyle]="{'color': loginSuccessful ? 'green': 'red'}">{{message}}</h3>
+    <h1 class="text-center">Log In</h1>
+    <form [formGroup]="logInData" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <div [hidden]="email?.valid || !triedToSubmit" class="alert alert-danger"> Email is required </div>
+            <label for="password" class="mt-1">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+            <div [hidden]="password?.valid || !triedToSubmit" class="alert alert-danger"> Password is required </div>
+        </div>
+        <div class="btn-wrapper d-flex justify-content-end">
+            <div class="mx-2">
+                <a class="btn btn-link mt-2" (click)="hide()">Dont have account? Sign Up Here</a>
+                <button type="submit" class="btn btn-login btn-primary mt-2">Login</button>
+            </div>
+            
+        </div>
+    </form>
+</div>

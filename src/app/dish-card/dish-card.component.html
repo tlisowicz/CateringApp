@@ -11,7 +11,7 @@
       <app-star-rating [dishID]="dish.id" [readonly]="true" [initialRating]="dish.avarageRating"></app-star-rating>
       <div class="dishes-left" *ngIf="currentlyAvaliable <= 3 && currentlyAvaliable > 1">Only {{currentlyAvaliable}} dishes left!</div>
       <div class="dishes-left" *ngIf="currentlyAvaliable == 1">Only {{currentlyAvaliable}} dish left!</div>
-      <div class="qty my-3" (click)="stopPropagation($event)">
+      <div *ngIf="isUserLoggedIn" class="qty my-3" (click)="stopPropagation($event)">
         <span *ngIf="currentlyAvaliable != 0" (click)="increment($event);addToCart()" class="plus bg-dark">+</span>
         <span  type="number" class="count" name="qty">{{selected}}</span>
         <span *ngIf="currentlyAvaliable != dish.servingsPerDay" (click)="decrement($event); removeFromCart()" class="minus bg-dark">-</span>

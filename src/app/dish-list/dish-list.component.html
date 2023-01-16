@@ -39,9 +39,9 @@
             </div>
         </ng-template>
         
-        <span *ngIf="true" class="ov-width btn btn-danger w-50 align-self-center" (click) = deleteDish(dish)>Delete</span>
+        <span *ngIf="currentRoute === '/dishManagement'" class="ov-width btn btn-danger w-50 align-self-center" (click) = deleteDish(dish)>Delete</span>
     </div>
-    <div class="col-xxl-3 col-xl-4 
+    <div *ngIf="currentRoute === '/dishManagement'" class="col-xxl-3 col-xl-4 
                 col-md-6 col-sm-12 
                 mb-3 d-flex justify-content-center
                 flex-column

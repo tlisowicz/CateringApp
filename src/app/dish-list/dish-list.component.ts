@@ -3,6 +3,7 @@ import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { FilterDataService } from '../services/filter-data.service';
 import { CartContentService } from '../services/cart-content.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dish-list',
@@ -14,7 +15,9 @@ export class DishListComponent {
   dishes: Dish[] = [];
   mostExpensive?: Dish;
   leastExpensive?: Dish;
+
   page: number = 1;
+  currentRoute: string = '';
 
   searchPhrase: string = "";
   categories: string[] = [];
@@ -29,9 +32,15 @@ export class DishListComponent {
   (
     private dishService: DishService, 
     private filterService: FilterDataService,
+    private router: Router,
   ) { };
 
   ngOnInit(): void {
+
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
+
     this.getDishes();
     this.filterService.searchPhrase.subscribe(phrase => this.searchPhrase = phrase);
     this.filterService.categories.subscribe(categories => this.categories = categories);
@@ -48,6 +57,8 @@ export class DishListComponent {
         this.dishes = dishes;
         this.findMostExpensive();
         this.findLeastExpensive();
+        this.filterService.setPriceTop(this.mostExpensive?.price ?? 1e10);
+        this.filterService.setPriceBottom(this.leastExpensive?.price ?? -1);
       });
     }
 

@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { stringValidator } from '../shared/FormFieldsValidators';
 import { Comment } from '../shared/comment';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-add-comment-form',
@@ -10,14 +12,28 @@ import { Comment } from '../shared/comment';
 })
 export class AddCommentFormComponent {
   
-  @Input() dishId:number = 10000;
+  dishId: number = 0;
   @Output() validComment: EventEmitter<Comment> = new EventEmitter<Comment>();
+  username: string = "";
 
   constructor(
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private authService: AuthService,) 
+    {
+      this.dishId = this.route.snapshot.params['id'];
+      this.authService.userState.subscribe(userState => {
+        if (userState) {
+          this.username = userState.username;
+          this.commentData.patchValue({author: this.username});
+        } else {
+          this.username = "";
+        }
+      });
+    }
 
   commentData = this.fb.group({
-    author: ["login",[Validators.required, stringValidator(/^(?!\s*$).+/)]],
+    author: [this.username,[Validators.required, stringValidator(/^(?!\s*$).+/)]],
     rating: [0,Validators.required],
     date: [new Date()],
     comment: ['', [Validators.required, stringValidator(/^(?!\s*$).+/), 
@@ -34,7 +50,6 @@ export class AddCommentFormComponent {
       alert("Some fields have invalid values");
       return;
     }
-    console.log(this.commentData.value);
     this.validComment.emit(this.makeComment());
     alert('Comment added!');
     this.commentData.reset();
@@ -60,7 +75,7 @@ export class AddCommentFormComponent {
   }
   setInitialValues() {
     this.commentData.setValue({
-      author: "login",
+      author: this.username,
       rating: 0,
       comment: '',
       date: new Date(),

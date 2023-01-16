@@ -41,7 +41,6 @@ export class DishService {
   addDish(dish: Dish): Observable<Dish> {
     const uri = "/dishes/new";
     const route = this.ROOT + uri;
-    console.log(dish);
     return this.http.post<Dish>(route, dish, {headers: {'Content-Type': 'application/json'}});
   }
   

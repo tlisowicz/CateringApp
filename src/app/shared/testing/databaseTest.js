@@ -1,4 +1,4 @@
-import {image} from './base64encodedImg.js'
+
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const uri = "mongodb+srv://CateringAppBackend:LXDqxcqT8RUgJO0G@cateringappdatabase.sksedte.mongodb.net/?retryWrites=true&w=majority";
@@ -17,7 +17,6 @@ async function getAll() {
     const database = client.db("CateringAppDatabase");
     const collection = database.collection("Dishes");
     const dish = await collection.find({}).toArray();
-    console.log(dish);
     client.close();
 }
 

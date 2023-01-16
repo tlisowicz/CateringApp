@@ -1,34 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable} from 'rxjs';
 import { Dish } from '../shared/dish';
-
+import { HttpClient } from '@angular/common/http';
+import { OrderHistory } from '../shared/orderHistory';
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
 export class OrderHistoryService {
 
-  dishes: Map<number, [Dish, number, Date][]> = new Map();
+  ROOT: string = 'http://localhost:3000/orderHistories';
 
-  constructor() { }
+  constructor(private http: HttpClient,
+    private auth: AuthService) { }
 
-  setOrderHistory(dishes: [Dish, number][], userId:number, date: Date) {
-    const dishesWithDate: [Dish, number, Date][] = dishes.map(dish => [dish[0], dish[1], date])
-    if (this.dishes.has(userId)) {
-      this.dishes.get(userId)?.push(...dishesWithDate);
-    }
-    else
-    {
-      this.dishes.set(userId, dishesWithDate);
-    }
-    console.log(`set history for user ${userId} to`, this.dishes)
+  getOrderHistory(username:string): Observable<OrderHistory[]> {
+    return this.http.get<OrderHistory[]>(this.ROOT + '/' + username);
   }
 
-  getOrderHistory(userId:number): Observable<[Dish, number, Date][] | undefined> {
-    console.log(`get history for user ${userId} to:`, this.dishes)
-    return of(this.dishes.get(userId));
-
+  addToHistory(dishesWithQuantity: [Dish, number][], username: string, date: Date) {
+    const uri = "/add";
+    const path = this.ROOT + uri;
+    return this.http.post<OrderHistory>(
+      path, {dishes: dishesWithQuantity, username: username, date: date},
+      {headers: 
+        {'Content-Type': 'application/json'}, 
+      });
   }
-
-
-
 }
+  
+
+

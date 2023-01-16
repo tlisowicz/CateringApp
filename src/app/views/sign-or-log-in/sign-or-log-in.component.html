@@ -1,0 +1,11 @@
+<app-navbar></app-navbar>
+<div class="container-fluid wrapper">
+    <app-login-box *ngIf="!hideLogIn"
+     (hideMe)="showSignHideLog()" 
+     class="form-box">
+    </app-login-box>
+     <app-sign-up-box *ngIf="!hideSignUp"
+     (hideMe)="showLogHideSingn()" 
+     class="form-box sign-up">
+    </app-sign-up-box>
+</div>

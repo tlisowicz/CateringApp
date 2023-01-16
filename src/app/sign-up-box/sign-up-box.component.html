@@ -1,0 +1,53 @@
+<div class="wrapper container-md p-3">
+  <h3 *ngIf="response" class="text-center" [ngStyle]="{'color': created ? 'green': 'red'}">{{message}}</h3>
+    <h1 class="text-center">Sign Up</h1>
+    <form [formGroup]="signInData" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <div [hidden]="email?.valid || email?.pristine " class="alert alert-danger"> This is not a valid email </div>
+            <label for="email">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="username">
+            <div [hidden]="username?.valid || username?.pristine " class="alert alert-danger"> Name has to be at least 3 characters long </div>
+            <label for="password" class="mt-1">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+            <div class="mt-3" *ngIf="requiredValid">
+                <div [ngClass]="{ 'text-success': minLengthValid, 'text-danger': !minLengthValid }">
+                  <i [attr.class]="minLengthValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                  Must be at least 8 characters long
+                </div>
+          
+                <div [ngClass]="{ 'text-success': requiresDigitValid, 'text-danger': !requiresDigitValid }">
+                  <i [attr.class]="requiresDigitValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                  Must contain at least 1 digit
+                </div>
+          
+                <div [ngClass]="{ 'text-success': requiresUppercaseValid, 'text-danger': !requiresUppercaseValid }">
+                  <i [attr.class]="requiresUppercaseValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                  Must contain at least 1 uppercase character
+                </div>
+          
+                <div [ngClass]="{ 'text-success': requiresLowercaseValid, 'text-danger': !requiresLowercaseValid }">
+                  <i [attr.class]="requiresLowercaseValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                  Must contain at least 1 lowercase character
+                </div>
+          
+                <div [ngClass]="{ 'text-success': requiresSpecialCharsValid, 'text-danger': !requiresSpecialCharsValid }">
+                  <i [attr.class]="requiresSpecialCharsValid ? 'bi-check-square-fill' : 'bi-x-square'"></i>
+                  Must contain at least 1 special character
+                </div>
+            </div>
+            <label for="repeat-password" class="mt-1">Repeat password</label>
+            <input type="password" class="form-control" id="repeat-password" formControlName="confirmPassword">
+            <div [hidden]="!passwordMatch || confirmPassword?.pristine" class="alert alert-danger"> Passwords are not the same</div>
+        </div>
+        <div class="btn-wrapper d-flex justify-content-end">
+            <div class="mx-2">
+                <a class="btn btn-link mt-2" (click)="hide()">I already have an account</a>
+                <button type="submit" class="btn btn-login btn-primary mt-2" >Sign Up</button>
+            </div>
+        </div>
+        <!-- <div style="color: white">VALUE: {{signInData.value | json}}</div>
+            <div style="color: white">STATUS: {{signInData.status}}</div> -->
+    </form>
+</div>

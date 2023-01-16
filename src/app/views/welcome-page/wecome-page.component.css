@@ -1,0 +1,26 @@
+.parallax {
+    background-image: url('/assets/imgs/indian-spices-spicy-seasonings-bowls-top-view-flat-lay-spice-banner_440424-1363.jpg');
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.parallax-top {
+min-height: 400px;
+}
+.wrapper {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}

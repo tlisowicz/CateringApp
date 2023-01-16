@@ -1,21 +1,17 @@
 <app-navbar></app-navbar>
-<div *ngIf="dishes.length !== 0; else empty" class="container p-3">
-    <div *ngFor="let date of uniqueDates;">
-        <h4>{{date | date:'medium'}}</h4>
-        <ng-container *ngFor="let dish of dishes | paginate: { itemsPerPage: 5, currentPage: page }">
-            <script>
-                console.log(dish[2]);
-                console.log(date);
-                console.log(dish[2]===date);
-            </script>
-            <app-dish-card
-            *ngIf="dish[2] === date" 
-            [dish]="dish[0]" 
-            [display]="'orderHistory'"
-            [selected]="dish[1]"
-        >
-        </app-dish-card>
-        </ng-container>
+<div *ngIf="orderHistories.length !== 0; else empty" class="container p-3">
+    <div *ngFor="let hisotry of orderHistories | paginate: { itemsPerPage: 5, currentPage: page }">
+        <div class="date">
+            <h4 class="text-center">{{hisotry.date | date:'medium'}}</h4>
+            <ng-container *ngFor="let dish of hisotry.dishes">
+                <app-dish-card
+                [dish]="dish[0]" 
+                [display]="'orderHistory'"
+                [selected]="dish[1]"
+            >
+            </app-dish-card>
+            </ng-container>
+        </div>
     </div>
 </div>
 

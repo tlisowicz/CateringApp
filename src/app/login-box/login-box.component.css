@@ -1,0 +1,17 @@
+.wrapper h1{
+    color: #fff;
+}
+
+.wrapper label {
+    color: #fff;
+}
+
+.wrapper {
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+    background-color: rgb(31, 37, 42);
+}
+
+.btn-login {
+    width: 7rem;
+}

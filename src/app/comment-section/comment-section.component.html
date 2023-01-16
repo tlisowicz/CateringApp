@@ -4,9 +4,12 @@
     
     <app-comment [comment]="comment" *ngFor="let comment of comments | paginate: { itemsPerPage: 10, currentPage: page }"> ></app-comment>
     <pagination-controls (pageChange)="page = $event"></pagination-controls>
-    <app-add-comment-form  *ngIf="true"
-        class="p-1"
-        [dishId]="dishId"      
+    <app-add-comment-form  *ngIf="canAddComment else cant"
+        class="p-1"     
     (validComment)="addComment($event)"></app-add-comment-form>
-    <h3 class="not-logged"*ngIf="false">Only logged users can add comments.</h3>
+    <ng-template #cant>
+        <div class="py-3">
+            <h4 class="cant-add" >To rate this dish you have to buy it first. Only 1 review per user is permitted.</h4>
+        </div>
+    </ng-template>
 </div>

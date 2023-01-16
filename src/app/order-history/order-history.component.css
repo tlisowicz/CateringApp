@@ -12,3 +12,14 @@
     background-color: rgb(31,37,42);
     color: white;
 }
+
+.date {
+    background-color: rgb(31,37,42);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 1rem;
+}
+
+.date>h4 {
+    color:white
+}

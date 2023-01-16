@@ -1,3 +1,0 @@
-username: CateringAppBackend
-
-pass: LXDqxcqT8RUgJO0G

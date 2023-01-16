@@ -1,0 +1,6 @@
+<app-navbar></app-navbar>
+<select (change)="setPersistanceType($event.target)" [value]="selected">
+    <option value="0">local</option>
+    <option value="1">session</option>
+    <option value="2">none</option>
+</select>

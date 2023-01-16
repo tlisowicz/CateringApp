@@ -51,4 +51,6 @@ export class FilterDataService {
   setRating(rating: number | null) {
     this.rating.next(rating);
   }
+
+  
 }

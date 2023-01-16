@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CartContentService } from '../services/cart-content.service';
 import { CurrencyService } from '../services/currency.service';
 import { Dish } from '../shared/dish';
-
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-dish-card',
   templateUrl: './dish-card.component.html',
@@ -16,15 +16,25 @@ export class DishCardComponent implements OnInit{
   @Input() selected: number = 0;
   currentlyAvaliable: number = 0;
   currency: string = "";
+  isUserLoggedIn: boolean = false;
 
   constructor
   (
     private router: Router,
     private cartService: CartContentService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private auth: AuthService
     ) { 
       this.currencyService.currency.subscribe(currency => {
         this.currency = currency;
+      });
+      this.auth.userState.subscribe(userState => {
+        if (userState) {
+          this.isUserLoggedIn = true
+        }
+        else {
+          this.isUserLoggedIn = false;
+        }
       });
      }
 
@@ -34,7 +44,7 @@ export class DishCardComponent implements OnInit{
       this.currentlyAvaliable = this.dish.servingsPerDay -this.selected;
     }
   }
-
+  
   increment(event: any) {
     event.stopPropagation();
     if (this.currentlyAvaliable) {
@@ -54,7 +64,6 @@ export class DishCardComponent implements OnInit{
   }
 
   gotoDishDetails(id: number) {
-    console.log(id);
     this.router.navigateByUrl(
       '/dish-details/'+id, 
       { state: 
