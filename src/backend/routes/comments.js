@@ -15,9 +15,8 @@ async function getComments(req, res) {
     });
 }
 
-export async function getCommentsByDish(req, res) {
+async function getCommentsByDish(req, res) {
     const id = req.params.id;
-    console.log(id);
     const query = {dishId: Number(id)};
     comments.find(query).toArray().then(result => {
         res.json(result);
@@ -37,11 +36,15 @@ async function addComment(req, res) {
 
 export async function deleteComments(dishID) {
 
-    comments.deleteMany({id: dishID}).catch(err => {
-        throw(`Error deleting comments: ${err}`)
-    });
+    comments.deleteMany({dishId: dishID})
+        .then(result => {
+            console.log(`Deleted ${result.deletedCount} comments`)
+        })
+        .catch(err => {
+            throw(`Error deleting comments: ${err}`)
+        });
 }
 
 router.get('/', getComments);
 router.get("/byDish/:id", getCommentsByDish);
-router.post("/new", jsonParser, addComment)
+router.post("/new", authenticateToken, jsonParser, addComment)
