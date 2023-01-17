@@ -15,18 +15,18 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private storageService: StorageService)
-     { 
-        this.userState = new BehaviorSubject<any>(this.getState());
-     }
-
-     setPersistanceType(type: PersistanceType)  {
-      this.storageService.setPersistanceType(type);
-      this.userState.next(this.getState());
+    { 
+      this.userState = new BehaviorSubject<any>(this.getState());
     }
 
-    getPersistanceType(): PersistanceType | null {
-      return Number(localStorage.getItem('persistanceType')) ?? null;
-    }
+  setPersistanceType(type: PersistanceType)  {
+  this.storageService.setPersistanceType(type);
+  this.userState.next(this.getState());
+  }
+
+  getPersistanceType(): PersistanceType | null {
+    return Number(localStorage.getItem('persistanceType')) ?? null;
+  }
 
   registerUser(user: User): Observable<boolean> {
     const uri = "/users/new";
@@ -60,12 +60,23 @@ export class AuthService {
   }
 
   logOutUser() {
-    this.storageService.remove('userCredentials');
-    this.userState.next(null);
+    const uri = "/logout";
+    const path = this.ROOT + uri;
+    const user: string = this.getState().username;
+    this.http.post<any>(path, {username: user}).subscribe(
+      (response: string) =>{
+        this.storageService.remove('userCredentials');
+        this.userState.next(null);
+      }
+    )
   }
 
+  refreshToken(userState: any) {
+    const uri = "/auth/refresh";
+    const path = this.ROOT + uri; 
+    return this.http.post<any>(path, userState);
+  }
   getState(): any {
-
     return JSON.parse(this.storageService.get('userCredentials'));
   }
 }

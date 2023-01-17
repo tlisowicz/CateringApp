@@ -10,8 +10,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <h4 *ngIf="isUserLoggedIn" class="userName">Hello <span>{{userName}}</span></h4>
-      <a *ngIf="userRole==='admin' && currentRoute !=='/adminView'" class="btn btn-info mx-1" routerLink="/adminView" >Admin view</a>
-      <a *ngIf="(userRole==='admin' || userRole==='dishManager') && currentRoute !=='/dishManagement'" class="btn btn-info mx-1" routerLink="/dishManagement" >Dish Manager</a>
+      <a *ngIf="userRoles.includes('admin') && currentRoute !=='/adminView'" class="btn btn-info mx-1" routerLink="/adminView" >Admin view</a>
+      <a *ngIf="(userRoles.includes('admin') || userRoles.includes('dishManager')) && currentRoute !=='/dishManagement'" class="btn btn-info mx-1" routerLink="/dishManagement" >Dish Manager</a>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item d-flex align-items-center">
           <a class="nav-link active" aria-current="page" routerLink="/welcome" routerLinkActive="activate">Home</a>

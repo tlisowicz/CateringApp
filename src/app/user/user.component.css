@@ -1,0 +1,19 @@
+.ban-btn {
+    width: 8rem;
+}
+
+.title {
+    margin: 0.5rem 0;
+}
+
+.card {
+    margin: 1rem 0;
+}
+
+.role {
+    border: 2px solid gray;
+    flex-grow: 1;
+    padding: 0 0.5rem;
+    border-radius: 5px;
+    justify-content: center;
+}

@@ -2,6 +2,7 @@ export interface User {
     username: string;
     email: string;
     password: string;
-    role: string;
+    roles: string[];
+    isBaned: boolean;
     //token: string;
 } 

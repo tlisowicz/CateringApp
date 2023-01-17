@@ -1,4 +1,4 @@
-import {USERS_COLLECTION as users, TOKEN_SECRET, REFRESH_TOKEN_SECRET} from '../consts.js';
+import {USERS_COLLECTION as users, TOKEN_SECRET, REFRESH_TOKEN_SECRET, REFRESH_TOKENS as tokens} from '../consts.js';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import express from 'express';
@@ -22,9 +22,10 @@ async function login(req, res) {
         res.status(200).send(
             {
                 username: fetchedUser.username, 
-                role: fetchedUser.role, 
+                roles: fetchedUser.roles, 
                 token: generateJWT(fetchedUser, false),
-                refreshToken: generateJWT(fetchedUser, true)
+                refreshToken: generateJWT(fetchedUser, true),
+                isBaned: fetchedUser.isBaned
             });
     }
     else {
@@ -33,10 +34,18 @@ async function login(req, res) {
 };
 
 function generateJWT(user, refresh) {
-    if (refresh) {
-        return jwt.sign({username: user.username, role: user.role}, REFRESH_TOKEN_SECRET);
+
+    const userState = 
+    {
+        username: user.username,
+        roles: user.roles,
     }
-    return jwt.sign({username: user.username, role: user.role}, TOKEN_SECRET, {expiresIn: '3h'});
+    if (refresh) {
+        const refteshToken = jwt.sign(userState, REFRESH_TOKEN_SECRET);
+        tokens.insertOne({token: refteshToken, username: user.username});
+        return refteshToken;
+    }
+    return jwt.sign(userState, TOKEN_SECRET, {expiresIn: '3h'});
 }
 
 export function authenticateToken(req, res, next){
@@ -44,10 +53,48 @@ export function authenticateToken(req, res, next){
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) return res.sendStatus(401);
     jwt.verify(token, TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
+        if (err) return res.sendStatus(401);
         req.user = user;
         next();
     });
 }
 
+export function isAdmin(req, res, next) {
+    if (req.user.roles.includes("admin")) {
+        next();
+    }
+    else {
+        res.sendStatus(403);
+    }
+}
+
+export function isDishManagerOrAdmin(req, res, next) {
+    if(req.user.roles.includes("dishManager") || req.user.roles.includes("admin")) {
+        next();
+    }
+    else {
+        res.sendStatus(403);
+    }
+}
+
+async function logOut(req, res) {
+    const username = req.body.username;
+    tokens.deleteOne({username: username});
+    res.status(200).json({message:"Logged out"});
+}
+
+async function refreshToken(req, res) {
+    const token = req.body.token;
+    const username = req.body.username;
+    if (token == null) return res.status(401);
+
+    const fetchedToken = await tokens.findOne({username: username});
+    if (fetchedToken === null) return res.status(403);
+
+    const newToken = generateJWT(req.body, false);
+    return res.status(200).json({token:newToken})
+}
+
 router.post('/login', jsonParser, login);
+router.post('/logout', jsonParser, logOut);
+router.post('/auth/refresh', jsonParser, refreshToken);

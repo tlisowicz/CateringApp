@@ -23,7 +23,7 @@ export class CommentService {
   {
     this.auth.userState.subscribe((state) => {
       if (state) {
-        if (state.role === "admin") {
+        if (state.roles.includes("admin")) {
         }
         this.privilegedToAdd.next(true);
       } else {

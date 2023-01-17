@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { OrderHistoryService } from '../services/order-history.service';
 import { Dish } from '../shared/dish';
@@ -16,10 +16,12 @@ export class OrderHistoryComponent {
   uniqueDates: Set<Date> = new Set();
   userName: string = '';
   page: number = 1;
-
+  authorized: boolean = true;
+  
   constructor(
     private orderService: OrderHistoryService,
     private auth: AuthService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.auth.userState.subscribe(userState => {
       if (userState) {
@@ -31,13 +33,16 @@ export class OrderHistoryComponent {
   }
 
   ngOnInit(): void {
-    this.orderService.getOrderHistory(this.userName)
-    .subscribe(orderHistoryArray => {
+    const username = this.activatedRoute.snapshot.paramMap.get('user') as string;
+    this.orderService.getOrderHistory(username)
+    .subscribe({
+      next: orderHistoryArray => {
       this.orderHistories = orderHistoryArray;
       this.orderHistories.sort((a, b) => {
         return new Date(b.date as string).getTime() - new Date(a.date as string).getTime();
       });
-    });
+    }, error: err => {this.authorized = false;}
+  });
   }
   
 

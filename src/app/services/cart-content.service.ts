@@ -11,18 +11,22 @@ export class CartContentService {
   dishes: [Dish, number][] = [];
 
   constructor() {
-    this.dishesSubject = new BehaviorSubject<[Dish, number][]>([]);
+    const setValue = JSON.parse(sessionStorage.getItem("dishes") || "[]");
+    this.dishes = setValue;
+    this.dishesSubject = new BehaviorSubject<[Dish, number][]>(setValue);
   }
 
   addDish(dish: Dish) {
     if (this.dishes.length == 0 ) {
       this.dishes.push([dish, 1]);
+      sessionStorage.setItem("dishes", JSON.stringify(this.dishes));
       this.dishesSubject.next(this.dishes);
       return;
     }
     
     if (this.dishes.find(dishMap => dishMap[0].id == dish.id) === undefined) {
       this.dishes.push([dish, 1]);
+      sessionStorage.setItem("dishes", JSON.stringify(this.dishes));
       this.dishesSubject.next(this.dishes);
       return;
 
@@ -32,6 +36,7 @@ export class CartContentService {
       if (dishMap[0].id == dish.id) {
         dishMap[1]++;
       }
+      sessionStorage.setItem("dishes", JSON.stringify(this.dishes));
       this.dishesSubject.next(this.dishes);
     });
   }
@@ -45,16 +50,19 @@ export class CartContentService {
         }
       }
     });
+    sessionStorage.setItem("dishes", JSON.stringify(this.dishes));
     this.dishesSubject.next(this.dishes);
   }
 
   removeAllDishesOfType(dish: Dish) {
     this.dishes = this.dishes.filter(dishMap => dishMap[0].id != dish.id);
+    sessionStorage.setItem("dishes", JSON.stringify(this.dishes));
     this.dishesSubject.next(this.dishes);
   }
 
   removeAllDishes() {
     this.dishes = [];
+    sessionStorage.setItem("dishes", JSON.stringify(this.dishes));
     this.dishesSubject.next(this.dishes);
   }
   

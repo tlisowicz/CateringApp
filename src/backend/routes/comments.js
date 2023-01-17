@@ -2,6 +2,7 @@
 import express from 'express';
 import {CLIENT, COMMENTS_COLLECTION as comments} from '../consts.js';
 import bodyParser from 'body-parser';
+import {authenticateToken, isAdmin} from './authorization.js';
 
 export const router = express.Router();
 const jsonParser = bodyParser.json();
@@ -45,6 +46,6 @@ export async function deleteComments(dishID) {
         });
 }
 
-router.get('/', getComments);
-router.get("/byDish/:id", getCommentsByDish);
+router.get('/', authenticateToken, getComments);
+router.get("/byDish/:id", authenticateToken, getCommentsByDish);
 router.post("/new", authenticateToken, jsonParser, addComment)

@@ -116,7 +116,8 @@ export class SignUpBoxComponent {
       email: this.signInData.value.email,
       username: this.signInData.value.username,
       password: this.signInData.value.password,
-      role: "user"
+      roles: ["user"],
+      isBaned: false,
     } as User;
   }
 }

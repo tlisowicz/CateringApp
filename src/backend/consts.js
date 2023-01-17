@@ -14,3 +14,4 @@ export const DISHES_COLLECTION = DATABASE_CONNECTION.collection("Dishes");
 export const COMMENTS_COLLECTION = DATABASE_CONNECTION.collection("Comments");
 export const USERS_COLLECTION = DATABASE_CONNECTION.collection("Users");
 export const ORDER_HISTORIES = DATABASE_CONNECTION.collection("OrderHistories");
+export const REFRESH_TOKENS = DATABASE_CONNECTION.collection("RefreshTokens");

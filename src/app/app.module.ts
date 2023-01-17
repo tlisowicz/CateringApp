@@ -40,6 +40,8 @@ import { SignUpBoxComponent } from './sign-up-box/sign-up-box.component';
 import { AdminViewComponent } from './views/admin-view/admin-view.component';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 import { DishManagementComponent } from './views/dish-management/dish-management.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { DishManagementComponent } from './views/dish-management/dish-management
     SignUpBoxComponent,
     AdminViewComponent,
     DishManagementComponent,
+    UsersListComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

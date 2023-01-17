@@ -15,7 +15,7 @@ export class NavbarComponent {
   chosenCurrency: string = "";
   isUserLoggedIn: boolean = false;
   userName: string = "";
-  userRole: string = "";
+  userRoles: string[] = [];
 
   constructor(
     private router: Router, 
@@ -36,12 +36,12 @@ export class NavbarComponent {
       if (userState) {
         this.isUserLoggedIn = true;
         this.userName = userState.username;
-        this.userRole = userState.role;
+        this.userRoles = userState.roles;
       }
       else {
         this.userName = "";
         this.isUserLoggedIn = false;
-        this.userRole = "";
+        this.userRoles = [];
       }
     })
    }

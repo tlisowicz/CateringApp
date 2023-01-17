@@ -8,8 +8,13 @@
         class="p-1"     
     (validComment)="addComment($event)"></app-add-comment-form>
     <ng-template #cant>
-        <div class="py-3">
+        <div *ngIf="!isUserBanned else banned" class="py-3">
             <h4 class="cant-add" >To rate this dish you have to buy it first. Only 1 review per user is permitted.</h4>
+        </div>
+    </ng-template>
+    <ng-template #banned>
+        <div class="py-3">
+            <h4 class="cant-add" >You are banned. Contact with administrator.</h4>
         </div>
     </ng-template>
 </div>

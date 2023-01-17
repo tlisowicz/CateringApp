@@ -8,10 +8,15 @@ const jsonParser = bodyParser.json();
 
 async function getHistory(req,res) {
     const username = req.params.username;
+    if (req.user.username !== username && !req.user.roles.includes("admin")) {
+        res.status(403).send("Unauthorized");
+        return;
+    }
     const query = {username: username};
     histories.find(query)
         .toArray()
         .then(result => {
+        
         res.json(result);
     }).catch(err => {
         res.status(400).send(err);

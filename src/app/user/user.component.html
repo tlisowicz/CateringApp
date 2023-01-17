@@ -1,0 +1,28 @@
+<div class="card m-1">
+  <div class="row no-gutters">
+    <div class="col-md-6">
+        <img class="card-img-top" src ="assets/imgs/placeHolderImage.png" alt="User photo" style="object-fit:cover">
+        <h5 class="title card-title p-2 text-center">User name: {{user.username| titlecase}}</h5>
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center">
+      <div class="d-flex flex-column justify-content-between" style="flex-grow: 1;">
+        <span class="subtitle card-text text-center my-3"><strong>Roles:</strong></span>
+          <div *ngFor="let role of possibleRoles" class="d-flex justify-content-center">
+            <span class=" role mx-2 d-inline-flex align-items-center">{{role}}</span>
+            <button *ngIf="!user.roles.includes(role) && role !== 'user' else hasRole" class="btn btn-danger" (click)="changeRoles(role,false)">X</button>
+            <ng-template #hasRole>
+              <button *ngIf="role !== 'user' else none" class="btn btn-success" (click)="changeRoles(role,true)">V</button>
+            </ng-template>
+            <ng-template #none>
+              <button class="btn btn-success" disabled>V</button>
+            </ng-template>
+          </div>
+        <button
+            class="ban-btn btn btn-danger m-3" 
+            (click)="banOrUnban()">
+            {{user.isBaned ? "Unban" : "Ban"}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,7 @@ export class CommentSectionComponent {
   dishId: number = 0;
   page = 1;
   canAddComment: boolean = false;
+  isUserBanned: boolean = false;
 
   constructor(
     private commentService: CommentService,
@@ -30,10 +31,12 @@ export class CommentSectionComponent {
           })
         });
 
-    this.auth.userState.subscribe(userState => {
-      if (userState) {
-        const userRole = userState.role;
-        if (userRole == 'admin' || userRole == 'dishManager') {
+      this.auth.userState.subscribe(userState => {
+        if (userState) {
+        this.isUserBanned = userState.isBaned;
+        const userRoles = userState.roles as string[];
+        const adminOrDishManager = userRoles.some(role => role == 'admin' || role == 'dishManager');
+        if (adminOrDishManager && !this.isUserBanned) {
           this.canAddComment = true;
           return;
         }
@@ -41,7 +44,7 @@ export class CommentSectionComponent {
         this.commentService.canUserAddComment(this.dishId, username)
         this.commentService.privilegedToAdd
         .subscribe(canAdd => {
-          this.canAddComment = canAdd;
+          this.canAddComment = (canAdd && !this.isUserBanned);
         });
       }
       else {
@@ -55,7 +58,7 @@ export class CommentSectionComponent {
     .addComment(comment)
     .subscribe({
       next: () => this.comments.unshift(comment),
-      error: (err) => console.log(err)
+      error: (err) => alert("Error adding comment try again.")
     })
     this.commentService.canUserAddComment(this.dishId, comment.author);
   }

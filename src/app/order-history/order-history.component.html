@@ -1,23 +1,37 @@
 <app-navbar></app-navbar>
-<div *ngIf="orderHistories.length !== 0; else empty" class="container p-3">
-    <div *ngFor="let hisotry of orderHistories | paginate: { itemsPerPage: 5, currentPage: page }">
-        <div class="date">
-            <h4 class="text-center">{{hisotry.date | date:'medium'}}</h4>
-            <ng-container *ngFor="let dish of hisotry.dishes">
-                <app-dish-card
-                [dish]="dish[0]" 
-                [display]="'orderHistory'"
-                [selected]="dish[1]"
-            >
-            </app-dish-card>
-            </ng-container>
+<ng-container *ngIf="orderHistories.length !== 0; else empty">
+    <div class="container p-3">
+        <div *ngFor="let hisotry of orderHistories | paginate: { itemsPerPage: 5, currentPage: page }">
+            <div class="date">
+                <h4 class="text-center">{{hisotry.date | date:'medium'}}</h4>
+                <ng-container *ngFor="let dish of hisotry.dishes">
+                    <app-dish-card
+                    [dish]="dish[0]" 
+                    [display]="'orderHistory'"
+                    [selected]="dish[1]"
+                >
+                </app-dish-card>
+                </ng-container>
+            </div>
         </div>
     </div>
-</div>
+</ng-container>
 
 <ng-template #empty>
-    <div class="container history-empty p-3 mt-5">
-        <h1 class="text-center">Nothing to show</h1>
-        <h4>Your order history is empty.</h4>
-    </div>
+    <ng-container *ngIf="authorized; else unauthorized">
+        <div  class="container history-empty p-3 mt-5">
+            <h1 class="text-center">Nothing to show</h1>
+            <h4>Your order history is empty.</h4>
+        </div>
+    </ng-container>
 </ng-template>
+
+<ng-template #unauthorized>
+    <ng-container>
+        <div class="container history-empty p-3 mt-5">
+            <h1 class="text-center" style="color: red">Unauthorized</h1>
+            <h4>You can't fetch other's user history</h4>
+        </div>
+    </ng-container>
+</ng-template>
+

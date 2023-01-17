@@ -1,6 +1,15 @@
 <app-navbar></app-navbar>
-<select (change)="setPersistanceType($event.target)" [value]="selected">
-    <option value="0">local</option>
-    <option value="1">session</option>
-    <option value="2">none</option>
-</select>
+<div class="header">
+    <div class="persistence">
+        <h4>Change persistence of log in state</h4>
+        <select class="form-select" (change)="setPersistanceType($event.target)" [value]="selected">
+            <option value="0">local</option>
+            <option value="1">session</option>
+            <option value="2">none</option>
+        </select>
+    </div>
+    <div class="d-flex justify-content-center m-2">
+        <h1 class="display-1 text-center">Registered users</h1>
+    </div>
+</div>
+<app-users-list></app-users-list>

@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
               return false;
             }
             //prevent user from accessing other user's order-history page
-            if (next.url[0].path !== userState.username) {
+            if (next.url[0].path !== userState.username && !userState.roles.includes("admin") &&!userState.roles.includes("dishManager")) {
               this.router.navigate(['/menu']);
               return false;
             }
@@ -47,13 +47,14 @@ export class AuthGuard implements CanActivate {
           }
         }
 
+        //prevent user from accessing admin pages if not logged in or not admin
+        //backend authorization demo
         if (next.url[0].path == "add" || next.url[0].path == "dishManagement") {
           if (!userState) {
             this.router.navigate(['/logIn']);
             return false;
           }
-          if (userState.role !== "admin" && userState.role !== "dishManager") {
-            console.log(userState.role);
+          if (!userState.roles.includes("admin") && !userState.roles.includes("dishManager")) {
             this.router.navigate(['/menu']);
             return false;
           }
@@ -64,7 +65,7 @@ export class AuthGuard implements CanActivate {
             this.router.navigate(['/logIn']);
             return false;
           }
-          if (userState.role !== "admin") {
+          if (!userState.roles.includes("admin")) {
             this.router.navigate(['/menu']);
             return false;
           }
