@@ -3,16 +3,25 @@
   <div class="card">
     <carousel class="card-img-top" [images]=dish.img></carousel>
     <div class="card-body d-flex flex-column py-3 px-4">
-      <h1 class="title card-title">{{dish.name | titlecase}}</h1>
-      <p class="descr card-text text-justify">{{dish.description}}</p>
-      <p class="subtitle card-text text-start">Categories: </p>
-      <li class="type type card-text text-start">kitchen type: {{dish.kitchenType | uppercase}}</li>
-      <li class="type card-text text-start">category: {{dish.category | uppercase}}</li>
-      <li class="type card-text text-start">type: {{dish.typeByIngredients | uppercase}}</li>
-      <p class="subtitle card-text text-start">Ingredients:</p>
-      <p  class="ingredients" ><span *ngFor="let ingredient of dish.ingredients; let i = index ">{{ingredient}}<span *ngIf="i!= dish.ingredients.length-1">, </span></span></p>
-      <div class="price-sec d-flex justify-content-evenly"><span>Avaliable today: {{currentlyAvaliable}}</span> <span>Price: {{dish.price | currency:currency | dolEurExchanger}}  </span></div>
-   
+      <h1 class="title card-title my-2">{{dish.name | titlecase}}</h1>
+      <p class="descr card-text text-justify m-3">{{dish.description}}</p>
+      <div class="list-wrapper d-flex justify-content-evenly">
+        <div style="flex: 1">
+          <p class="subtitle card-text text-center">Categories: </p>
+          <ul class="m-2 ps-5">
+            <li class="type type card-text text-start">kitchen type: <strong>{{dish.kitchenType | uppercase}}</strong></li>
+            <li class="type card-text text-start">category: <strong>{{dish.category | uppercase}}</strong></li>
+            <li class="type card-text text-start">type: <strong>{{dish.typeByIngredients | uppercase}}</strong></li>
+          </ul>
+        </div>
+        <div  style="flex: 1">
+          <p class="subtitle card-text text-center">Ingredients:</p>
+          <ul class="m-2" style="padding-left: 9rem">
+            <li class="type type card-text text-start" *ngFor="let ingredient of dish.ingredients; let i = index ">{{ingredient}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="price-sec d-flex justify-content-evenly"><span class="footer">Avaliable today: {{currentlyAvaliable}}</span> <span class="footer">Price: {{dish.price | currency:currency | dolEurExchanger}}  </span></div>   
       </div>
     </div>
     <app-comment-section></app-comment-section>

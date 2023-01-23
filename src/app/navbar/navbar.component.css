@@ -24,6 +24,18 @@ app-filter-section {
     text-decoration: underline;
 }
 
+.adminView {
+    font-size: 0.7rem;
+}
+
+.dihsManager {
+    font-size: 0.7rem;
+}
+
+.log {
+    min-width: 81.5px;
+}
+
 @media screen and (max-width: 768px) {
     .shown { 
         height: 300px;

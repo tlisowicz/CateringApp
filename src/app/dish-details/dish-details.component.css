@@ -11,8 +11,8 @@
 }
 
 .subtitle {
-    font-weight: bolder;
     padding-top: 0.7rem;
+    font-size: 2rem;
 }
 .type {
     padding-left: 30px;
@@ -53,6 +53,11 @@ div {
 
 app-comment-section {
     width: 70%;
+}
+
+.footer {
+    padding: 1rem 0;
+    font-size: 2rem;
 }
 
 
